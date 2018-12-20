@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_upload"
+        android:icon="@drawable/upload"
+        android:title="Uploads"
+            />
+    <item
+        android:id="@+id/nav_shared"
+        android:icon="@drawable/shared"
+        android:title="Shared"
+        />
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/profile"
+        android:title="Profile"
+        />
+
+</menu>
