@@ -1,4 +1,4 @@
-package in.fairshare;
+package in.fairshare.Activities;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -6,8 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import in.fairshare.R;
+import in.fairshare.user_register;
 
-public class splash_screen extends AppCompatActivity {
+
+public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +21,7 @@ public class splash_screen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(splash_screen.this,user_register.class);
+                Intent intent = new Intent(SplashScreenActivity.this,LoginRegistrationActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -1,4 +1,4 @@
-package in.fairshare;
+package in.fairshare.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,11 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class sharedFragment extends Fragment {
+import in.fairshare.R;
+
+public class ShareFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.shared_fragment,container,false);
+        return inflater.inflate(R.layout.fragment_share,container,false);
     }
 }

@@ -1,4 +1,4 @@
-package in.fairshare;
+package in.fairshare.Activities;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,6 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
+
+import in.fairshare.R;
+import in.fairshare.Fragments.ProfileFragment;
+import in.fairshare.Fragments.ShareFragment;
+import in.fairshare.Fragments.UploadFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new uploadFragment()).commit();
+                    new UploadFragment()).commit();
         }
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -30,13 +35,13 @@ public class MainActivity extends AppCompatActivity {
 
                     switch (item.getItemId()) {
                         case R.id.nav_upload:
-                            selectedFragment = new uploadFragment();
+                            selectedFragment = new UploadFragment();
                             break;
                         case R.id.nav_shared:
-                            selectedFragment = new sharedFragment();
+                            selectedFragment = new ShareFragment();
                             break;
                         case R.id.nav_profile:
-                            selectedFragment = new profileFragment();
+                            selectedFragment = new ProfileFragment();
                             break;
                     }
 
