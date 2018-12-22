@@ -4,107 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
     tools:context=".Activities.LoginRegistrationActivity">
 
     <FrameLayout
-        android:id="@+id/loginFragment"
+        android:id="@+id/loginRegistrationActivityFragmentID"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </FrameLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:layout_centerHorizontal="true"
-        android:text="@string/app_name"
-        android:layout_marginTop="50dp"
-        android:textSize="42sp"
-        android:textStyle="bold"
-        android:id="@+id/app_name"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:layout_centerHorizontal="true"
-        android:text="Login"
-        android:textSize="42sp"
-        android:layout_below="@id/app_name"
-        android:id="@+id/signup_txt"
-        />
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
-    <EditText
-        android:id="@+id/emailSignInID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/input_bg"
-        android:ems="10"
-        android:hint="@string/hint_email"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.147" />
-
-    <EditText
-        android:background="@drawable/input_bg"
-        android:id="@+id/passwordSignInID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:hint="@string/hint_password"
-        android:layout_below="@id/emailSignInID"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailSignInID"
-        app:layout_constraintVertical_bias="0.022" />
-
-    <Button
-        android:id="@+id/signInButtonID"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
-        android:text="@string/btn_signin"
-        android:layout_below="@id/passwordSignInID"
-        android:background="@drawable/button_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordSignInID"
-        app:layout_constraintVertical_bias="0.053" />
-
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/registrationSignInButtonID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/btn_registration"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/button_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signInButtonID"
-        app:layout_constraintVertical_bias="0.848" />
-
 </RelativeLayout>

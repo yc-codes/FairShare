@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import in.fairshare.R;
-import in.fairshare.user_register;
 
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -25,7 +24,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },2500);
+        },1500);
 
     }
 }

@@ -17,16 +17,16 @@
         android:textStyle="bold"
         android:id="@+id/app_name"
         />
+
     <TextView
+        android:id="@+id/signup_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:layout_centerHorizontal="true"
-        android:text="Sign Up"
-        android:textSize="42sp"
         android:layout_below="@id/app_name"
-        android:id="@+id/signup_txt"
-        />
+        android:layout_centerHorizontal="true"
+        android:text="@string/btn_signup"
+        android:textColor="@color/white"
+        android:textSize="42sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -35,41 +35,43 @@
         android:layout_marginLeft="90dp">
 
         <EditText
+            android:id="@+id/usernameRegistrationID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="username"
-            android:textColor="@color/white"
-            android:id="@+id/username"
-            android:background="@drawable/input_bg"/>
+            android:background="@drawable/input_bg"
+            android:hint="@string/hint_username"
+            android:textColor="@color/white" />
+
         <EditText
+            android:id="@+id/emailRegistrationID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Login"
-            android:layout_below="@id/username"
-            android:id="@+id/email"
-            android:textColor="@color/white"
+            android:layout_below="@id/usernameRegistrationID"
             android:layout_marginTop="20dp"
-            android:background="@drawable/input_bg"/>
+            android:background="@drawable/input_bg"
+            android:hint="@string/hint_email"
+            android:textColor="@color/white" />
+
         <EditText
+            android:id="@+id/passwordRegistrationID"
             android:layout_width="match_parent"
-            android:id="@+id/password"
-            android:textColor="@color/white"
-            android:layout_below="@id/email"
-            android:hint="password"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emailRegistrationID"
             android:layout_marginTop="20dp"
+            android:background="@drawable/input_bg"
+            android:hint="@string/hint_password"
             android:inputType="textPassword"
-            android:layout_height="wrap_content"
-            android:background="@drawable/input_bg"/>
+            android:textColor="@color/white" />
 
         <Button
+            android:id="@+id/signupButtonID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
-            android:layout_below="@id/password"
+            android:layout_below="@id/passwordRegistrationID"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:background="@drawable/button_bg"
-            android:layout_centerHorizontal="true"
-            />
+            android:text="@string/btn_signup" />
 
     </RelativeLayout>
 
