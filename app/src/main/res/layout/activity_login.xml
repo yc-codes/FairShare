@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_bg"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragments.LoginFragment">
+    tools:context=".Activities.LoginActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,6 +42,7 @@
             android:background="@drawable/input_bg"
             android:ems="10"
             android:hint="@string/hint_email"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
@@ -56,6 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:ems="10"
+            android:textColor="@color/white"
             android:hint="@string/hint_password"
             android:layout_below="@id/emailLoginID"
             android:inputType="textPassword"
@@ -83,21 +85,29 @@
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/registrationLoginButtonID"
+    <TextView
+        android:id="@+id/registrationQuestionTextLoginID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:text="@string/register_ques"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/button_bg"
-        android:text="@string/btn_registration"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.848" />
-    <!-- app:layout_constraintTop_toBottomOf="@+id/loginButtonID" -->
+        android:textSize="16sp"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/registrationTextLoginID"
+        android:layout_width="wrap_content"
+        android:text="@string/register_text"
+        android:layout_alignBottom="@id/registrationQuestionTextLoginID"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:textSize="18sp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white" />
 </RelativeLayout>

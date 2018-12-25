@@ -12,4 +12,18 @@
         android:textStyle="bold"
         android:layout_centerInParent="true"/>
 
+    <TextView
+        android:id="@+id/signoutTextID"
+        android:textColor="@color/white"
+        android:text="@string/signout"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="24sp"
+        android:layout_marginBottom="15sp"
+        android:clickable="true"
+        android:focusable="true"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>
