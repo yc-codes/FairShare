@@ -44,10 +44,20 @@
             android:textColor="@color/white" />
 
         <EditText
+            android:id="@+id/fullNameRegistrationID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/usernameRegistrationID"
+            android:background="@drawable/input_bg"
+            android:hint="@string/hint_fullName"
+            android:textColor="@color/white" />
+
+        <EditText
             android:id="@+id/emailRegistrationID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/usernameRegistrationID"
+            android:layout_below="@id/fullNameRegistrationID"
             android:layout_marginTop="20dp"
             android:background="@drawable/input_bg"
             android:hint="@string/hint_email"
@@ -75,4 +85,5 @@
             android:text="@string/btn_signup" />
 
     </RelativeLayout>
+
 </RelativeLayout>

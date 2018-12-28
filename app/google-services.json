@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "380874078840",
-    "firebase_url": "https://fair-share-68890.firebaseio.com",
-    "project_id": "fair-share-68890",
-    "storage_bucket": "fair-share-68890.appspot.com"
+    "project_number": "862713313133",
+    "firebase_url": "https://fairshare-8fb84.firebaseio.com",
+    "project_id": "fairshare-8fb84",
+    "storage_bucket": "fairshare-8fb84.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:380874078840:android:e4e78a2fd1022209",
+        "mobilesdk_app_id": "1:862713313133:android:e4e78a2fd1022209",
         "android_client_info": {
           "package_name": "in.fairshare"
         }
       },
       "oauth_client": [
         {
-          "client_id": "380874078840-nfonv9a6mclfgrlkk9k65vtpm5fjncnt.apps.googleusercontent.com",
+          "client_id": "862713313133-ihpeebk9q2bue0i6n8cd0npaaka681ea.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "in.fairshare",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "380874078840-v333jjvf1jvof5p8bkv94l4lhrpdel92.apps.googleusercontent.com",
+          "client_id": "862713313133-0093alopq2jmt6e9a3cj21kn008riiuh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA9mBTvPRYn8LZbxmYFJZ_XonBKxU8B5Wc"
+          "current_key": "AIzaSyCPKzallbIxLFQyPto5sFVUh6CYC_jY1Vg"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "380874078840-v333jjvf1jvof5p8bkv94l4lhrpdel92.apps.googleusercontent.com",
+              "client_id": "862713313133-0093alopq2jmt6e9a3cj21kn008riiuh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
