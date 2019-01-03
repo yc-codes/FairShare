@@ -40,6 +40,7 @@ public class ProfileFragment extends Fragment {
                 if(mUser != null && mAuth != null) {
                     mAuth.signOut();
                     startActivity(new Intent(getContext(), LoginActivity.class));
+                    getActivity().finishAffinity();
                 }
             }
         });

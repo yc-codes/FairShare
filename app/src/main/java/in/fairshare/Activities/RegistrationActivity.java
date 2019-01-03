@@ -82,7 +82,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             if (authResult != null) {
 
                                 String userID = mAuth.getCurrentUser().getUid();
-                                DatabaseReference currentUserDb = mDatabaseReference.child(userID);
+                                DatabaseReference currentUserDb = mDatabaseReference.child(username);
                                 currentUserDb.child("Username").setValue(username);
                                 currentUserDb.child("FullName").setValue(fullName);
                                 currentUserDb.child("Email").setValue(email);
