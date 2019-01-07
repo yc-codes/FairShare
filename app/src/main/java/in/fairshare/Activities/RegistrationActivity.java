@@ -2,9 +2,11 @@ package in.fairshare.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,9 +19,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.regex.Pattern;
+
 import in.fairshare.R;
 
 public class RegistrationActivity extends AppCompatActivity {
+
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile("^" +
+                    "(?=.*[0-9])" +         //at least 1 digit
+                    //"(?=.*[a-z])" +         //at least 1 lower case letter
+                    //"(?=.*[A-Z])" +         //at least 1 upper case letter
+                    "(?=.*[a-zA-Z])" +      //any letter
+                    "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                    "(?=\\S+$)" +           //no white spaces
+                    ".{4,}" +               //at least 4 characters
+                    "$");
 
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mDatabase;
@@ -28,10 +43,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private ProgressDialog mProgressDialog;
 
-    private EditText usernameRegistration;
-    private EditText fullNameRegistration;
-    private EditText emailRegistration;
-    private EditText passwordRegistration;
+    private TextInputLayout usernameRegistration;
+    private TextInputLayout fullNameRegistration;
+    private TextInputLayout emailRegistration;
+    private TextInputLayout passwordRegistration;
     private Button signupButton;
 
     @Override
@@ -56,6 +71,9 @@ public class RegistrationActivity extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!validateUsername() | !validateFullName() | !validateEmail() | !validatePassword()) {
+                    return;
+                }
                 signUp();
             }
         });
@@ -63,10 +81,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
     public void signUp() {
 
-        final String username = usernameRegistration.getText().toString().trim();
-        final String fullName = fullNameRegistration.getText().toString();
-        final String email = emailRegistration.getText().toString().trim();
-        final String password = passwordRegistration.getText().toString().trim();
+        final String username = usernameRegistration.getEditText().getText().toString().trim();
+        final String fullName = fullNameRegistration.getEditText().getText().toString();
+        final String email = emailRegistration.getEditText().getText().toString().trim();
+        final String password = passwordRegistration.getEditText().getText().toString().trim();
 
         if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(fullName) &&
                 !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
@@ -101,6 +119,63 @@ public class RegistrationActivity extends AppCompatActivity {
         } else {
             Toast.makeText(RegistrationActivity.this,"Please fill all the fields!!",
                     Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private boolean validateUsername() {
+        String usernameInput = usernameRegistration.getEditText().getText().toString().trim();
+
+        if (usernameInput.isEmpty()) {
+            usernameRegistration.setError("Field can't be empty");
+            return false;
+        } else if (usernameInput.length() > 15) {
+            usernameRegistration.setError("Username too long");
+            return false;
+        } else {
+            usernameRegistration.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateFullName() {
+        String usernameInput = fullNameRegistration.getEditText().getText().toString().trim();
+
+        if (usernameInput.isEmpty()) {
+            fullNameRegistration.setError("Field can't be empty");
+            return false;
+        } else {
+            fullNameRegistration.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateEmail() {
+        String emailInput = emailRegistration.getEditText().getText().toString().trim();
+
+        if (emailInput.isEmpty()) {
+            emailRegistration.setError("Field can't be empty");
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) { // Inbuild Function
+            emailRegistration.setError("Please enter a valid email address");
+            return false;
+        } else {
+            emailRegistration.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatePassword() {
+        String passwordInput = passwordRegistration.getEditText().getText().toString().trim();
+
+        if (passwordInput.isEmpty()) {
+            passwordRegistration.setError("Field can't be empty");
+            return false;
+        } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) { // Self Made
+            passwordRegistration.setError("Password too weak");
+            return false;
+        } else {
+            passwordRegistration.setError(null);
+            return true;
         }
     }
 }
