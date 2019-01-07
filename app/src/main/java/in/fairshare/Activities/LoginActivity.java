@@ -2,6 +2,7 @@ package in.fairshare.Activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,8 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseUser mUser;
 
-    private EditText emailLogin;
-    private EditText passwordLogin;
+    private TextInputLayout emailLogin;
+    private TextInputLayout passwordLogin;
     private Button loginButton;
     private TextView registrationTextLogin;
 
@@ -71,11 +72,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (!TextUtils.isEmpty(emailLogin.getText().toString()) &&
-                        !TextUtils.isEmpty(passwordLogin.getText().toString())) {
+                if (!TextUtils.isEmpty(emailLogin.getEditText().getText().toString()) &&
+                        !TextUtils.isEmpty(passwordLogin.getEditText().getText().toString())) {
 
-                    String email = emailLogin.getText().toString();
-                    String pwd = passwordLogin.getText().toString();
+                    String email = emailLogin.getEditText().getText().toString();
+                    String pwd = passwordLogin.getEditText().getText().toString();
 
                     login(email, pwd);
                 } else {
