@@ -2,6 +2,7 @@ package in.fairshare.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -171,7 +172,7 @@ public class RegistrationActivity extends AppCompatActivity {
             passwordRegistration.setError("Field can't be empty");
             return false;
         } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) { // Self Made
-            passwordRegistration.setError("Password too weak");
+            passwordRegistration.setError("Password too weak. It must contain letters, symbol, digits and must be a 4 character");
             return false;
         } else {
             passwordRegistration.setError(null);

@@ -9,6 +9,34 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
     </style>
 
+    <!--<style name="Widget.Design.TextInputLayout" parent="AppTheme">-->
+        <!--&lt;!&ndash;<item name="hintTextAppearance">@style/AppTheme.TextFloatLabelAppearance</item>&ndash;&gt;-->
+        <!--<item name="counterTextAppearance">@style/TextAppearance.Design.Counter</item>-->
+    <!--</style>-->
+
+    <!--<style name="AppTheme.TextFloatLabelAppearance" parent="TextAppearance.Design.Hint">-->
+        <!--&lt;!&ndash; Floating label appearance here &ndash;&gt;-->
+        <!--<item name="android:textColor">@color/white</item>-->
+        <!--<item name="android:textSize">15sp</item>-->
+    <!--</style>-->
+
+    <!--<style name="TextAppearance.Design.Counter" parent="TextAppearance.Design.Hint">-->
+        <!--&lt;!&ndash; Floating label appearance here &ndash;&gt;-->
+        <!--<item name="android:textColor">@color/white</item>-->
+    <!--</style>-->
+
+    <style name="ErrorAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="CounterAppearance" >
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

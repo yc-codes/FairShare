@@ -1,5 +1,6 @@
 package in.fairshare.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -31,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private TextView registrationTextLogin;
 
+    private ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
         passwordLogin = findViewById(R.id.passwordLoginID);
         loginButton = findViewById(R.id.loginButtonID);
         registrationTextLogin = findViewById(R.id.registrationTextLoginID);
+
+        mProgressDialog = new ProgressDialog(this);
 
         registrationTextLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,11 +64,11 @@ public class LoginActivity extends AppCompatActivity {
                 mUser = firebaseAuth.getCurrentUser();
 
                 if (mUser != null) {
-                    Toast.makeText(LoginActivity.this, "Signed In!!", Toast.LENGTH_LONG).show();
+                    // Toast.makeText(LoginActivity.this, "Signed In!!", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Not Signed In!!", Toast.LENGTH_LONG).show();
+                    // Toast.makeText(LoginActivity.this, "Not Signed In!!", Toast.LENGTH_LONG).show();
                 }
             }
         };
@@ -77,6 +82,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     String email = emailLogin.getEditText().getText().toString();
                     String pwd = passwordLogin.getEditText().getText().toString();
+
+                    mProgressDialog.setMessage("Logging in....");
+                    mProgressDialog.show();
 
                     login(email, pwd);
                 } else {
@@ -95,11 +103,14 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
                             //  We are in!!!
-                            Toast.makeText(LoginActivity.this, "Login!!", Toast.LENGTH_LONG).show();
+                            // Toast.makeText(LoginActivity.this, "Login!!", Toast.LENGTH_LONG).show();
 
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
+
+                            mProgressDialog.dismiss();
                         } else {
+                            mProgressDialog.dismiss();
                             Toast.makeText(LoginActivity.this, "Incorrect Email & Password!!", Toast.LENGTH_LONG).show();
                         }
                     }
