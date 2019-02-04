@@ -2,7 +2,6 @@
     <string name="app_name">Fair Share</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="btn_registration">Registration</string>
@@ -13,4 +12,8 @@
     <string name="register_text">Register</string>
     <string name="signout">Sign Out</string>
     <string name="hint_fullName">Full Name</string>
+    <string name="text_upload">Upload Video</string>
+    <string name="text_profile">Profile</string>
+    <string name="text_videos">Videos</string>
+    <string name="text_sharedVideos">Shared Videos</string>
 </resources>

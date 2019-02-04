@@ -57,21 +57,23 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                mUser = firebaseAuth.getCurrentUser();
-
-                if (mUser != null) {
-                    // Toast.makeText(LoginActivity.this, "Signed In!!", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
-                } else {
-                    // Toast.makeText(LoginActivity.this, "Not Signed In!!", Toast.LENGTH_LONG).show();
-                }
-            }
-        };
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//
+//                mUser = firebaseAuth.getCurrentUser();
+//
+//                if (mUser != null) {
+//                    // Toast.makeText(LoginActivity.this, "Signed In!!", Toast.LENGTH_LONG).show();
+//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                    // intent.putExtra("email", emailLogin);
+//                    startActivity(intent);
+//                    finishAffinity();
+//                } else {
+//                    // Toast.makeText(LoginActivity.this, "Not Signed In!!", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        };
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                     String email = emailLogin.getEditText().getText().toString();
                     String pwd = passwordLogin.getEditText().getText().toString();
 
-                    mProgressDialog.setMessage("Logging in....");
+                    mProgressDialog.setMessage("Logging in...");
                     mProgressDialog.show();
 
                     login(email, pwd);
@@ -94,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void login(String email, String pwd) {
+    private void login(final String email, String pwd) {
 
         mAuth.signInWithEmailAndPassword(email, pwd)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -104,9 +106,10 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             //  We are in!!!
                             // Toast.makeText(LoginActivity.this, "Login!!", Toast.LENGTH_LONG).show();
-
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            finish();
+                            Intent intent1 = new Intent(LoginActivity.this, MainActivity.class);
+                            intent1.putExtra("EmailFromLogin", email);
+                            startActivity(intent1);
+                            finishAffinity();
 
                             mProgressDialog.dismiss();
                         } else {
@@ -117,18 +120,18 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener); // To See User State whether it is login or not
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        mAuth.addAuthStateListener(mAuthListener); // To See User State whether it is login or not
+//    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//
+//        if (mAuthListener != null) {
+//            mAuth.removeAuthStateListener(mAuthListener);
+//        }
+//    }
 }

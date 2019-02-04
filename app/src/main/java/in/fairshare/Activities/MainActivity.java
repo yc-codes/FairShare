@@ -1,54 +1,83 @@
 package in.fairshare.Activities;
 
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.WindowManager;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import in.fairshare.R;
-import in.fairshare.Fragments.ProfileFragment;
-import in.fairshare.Fragments.ShareFragment;
-import in.fairshare.Fragments.UploadFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Button uploadButton;
+    private Button videosButton;
+    private Button sharedVideosButton;
+    private Button profileButton;
+
+    private FirebaseUser mUser;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         setContentView(R.layout.activity_main);
-        BottomNavigationView bottomNav = findViewById(R.id.navbar);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new UploadFragment()).commit();
+
+        uploadButton = findViewById(R.id.uploadButtonID);
+        videosButton = findViewById(R.id.videosButtonID);
+        sharedVideosButton = findViewById(R.id.sharedVideosButtonID);
+        profileButton = findViewById(R.id.profileButtonID);
+
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+
+        Intent i = getIntent();
+        final String emailFromLogin = i.getStringExtra("EmailFromLogin");
+        final String emailFromRegistration = i.getStringExtra("EmailFromRegistration");
+
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        videosButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        sharedVideosButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                intent.putExtra("EmailFromLogin", emailFromLogin);
+                intent.putExtra("EmailFromRegistration", emailFromRegistration);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if(mUser != null && mAuth != null) {
+            mAuth.signOut();
         }
     }
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
-
-                    switch (item.getItemId()) {
-                        case R.id.nav_upload:
-                            selectedFragment = new UploadFragment();
-                            break;
-                        case R.id.nav_shared:
-                            selectedFragment = new ShareFragment();
-                            break;
-                        case R.id.nav_profile:
-                            selectedFragment = new ProfileFragment();
-                            break;
-                    }
-
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedFragment).commit();
-
-                    return true;
-                }
-            };
 }
