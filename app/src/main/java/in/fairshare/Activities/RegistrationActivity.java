@@ -36,7 +36,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mDatabase;
-    // private StorageReference mFirebaseStorage;
     private FirebaseAuth mAuth;
 
     private ProgressDialog mProgressDialog;
@@ -98,7 +97,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             if (authResult != null) {
 
                                 String userID = mAuth.getCurrentUser().getUid();
-                                DatabaseReference currentUserDb = mDatabaseReference.child(username);
+                                DatabaseReference currentUserDb = mDatabaseReference.child(userID);
                                 currentUserDb.child("Username").setValue(username);
                                 currentUserDb.child("FullName").setValue(fullName);
                                 currentUserDb.child("Email").setValue(email);
@@ -111,7 +110,6 @@ public class RegistrationActivity extends AppCompatActivity {
                                 Intent intent = new Intent(RegistrationActivity.this,
                                         MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                intent.putExtra("EmailFromRegistration", email);
                                 startActivity(intent);
                                 finishAffinity();
                             }

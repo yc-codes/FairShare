@@ -107,7 +107,6 @@ public class LoginActivity extends AppCompatActivity {
                             //  We are in!!!
                             // Toast.makeText(LoginActivity.this, "Login!!", Toast.LENGTH_LONG).show();
                             Intent intent1 = new Intent(LoginActivity.this, MainActivity.class);
-                            intent1.putExtra("EmailFromLogin", email);
                             startActivity(intent1);
                             finishAffinity();
 

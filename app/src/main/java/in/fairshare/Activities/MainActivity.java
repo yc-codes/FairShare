@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseUser mUser;
     private FirebaseAuth mAuth;
+    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
-
-        Intent i = getIntent();
-        final String emailFromLogin = i.getStringExtra("EmailFromLogin");
-        final String emailFromRegistration = i.getStringExtra("EmailFromRegistration");
+        userID = mUser.getUid();
 
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                intent.putExtra("EmailFromLogin", emailFromLogin);
-                intent.putExtra("EmailFromRegistration", emailFromRegistration);
+                intent.putExtra("UserID", userID);
                 startActivity(intent);
             }
         });
