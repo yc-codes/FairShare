@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                intent.putExtra("UserID", userID);
+                intent.putExtra("userID", userID);
                 startActivity(intent);
             }
         });

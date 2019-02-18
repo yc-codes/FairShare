@@ -47,10 +47,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
-        userID = mUser.getUid();
+        // userID = mUser.getUid();
 
         Intent i = getIntent();
-        // userID = i.getStringExtra("UserID");
+        userID = i.getStringExtra("userID");
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
 
@@ -78,10 +78,12 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(mUser != null && mAuth != null) {
+                if(mAuth != null) {
                     mAuth.signOut();
                     startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
                     finishAffinity();
+                } else {
+                    Toast.makeText(ProfileActivity.this, "Unable to SignOut", Toast.LENGTH_SHORT).show();
                 }
             }
         });
