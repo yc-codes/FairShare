@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ThrowOnExtraProperties;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private String filePath;
     private Uri uri;
+    private Uri encFilePathUri;
     private static final int READ_REQUEST_CODE = 42;
     private File inputFile;
     private File encryptedFile;
@@ -153,8 +155,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (encryptedFile != null) {
-
                     // uploadVideo(encryptedFile);
+                    Toast.makeText(getApplicationContext(),"Path: "+encFilePathUri.toString(), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -216,6 +218,9 @@ public class MainActivity extends AppCompatActivity {
 
             // TODO: I want this as a Uri object
             encryptedFile = new File("/storage/emulated/0/enc-file.enc");
+
+            //todo: here is the path in URI
+            encFilePathUri = Uri.parse("/storage/emulated/0/enc-file.enc");
 
             CryptoUtils.encrypt(key, inputFile, encryptedFile);
 
