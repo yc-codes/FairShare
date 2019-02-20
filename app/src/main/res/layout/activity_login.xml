@@ -87,7 +87,7 @@
         android:text="@string/register_ques"
         android:layout_centerHorizontal="true"
         android:textSize="16sp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="40dp"
         android:layout_alignParentBottom="true"
         android:textColor="@color/white" />
 

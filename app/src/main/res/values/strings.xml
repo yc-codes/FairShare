@@ -8,7 +8,7 @@
     <string name="btn_login">Login</string>
     <string name="btn_signup">Sign Up</string>
     <string name="hint_username">Username</string>
-    <string name="register_ques">haven\'t register yet?</string>
+    <string name="register_ques">Haven\'t Registered Yet?</string>
     <string name="register_text">Register</string>
     <string name="signout">Sign Out</string>
     <string name="hint_fullName">Full Name</string>
@@ -16,4 +16,8 @@
     <string name="text_profile">Profile</string>
     <string name="text_videos">Videos</string>
     <string name="text_sharedVideos">Shared Videos</string>
+    <string name="video_description">Video Description</string>
+    <string name="video_title">Video Title</string>
+    <string name="choose_video">Choose Video</string>
+    <string name="upload_video">Upload Video</string>
 </resources>
