@@ -14,7 +14,6 @@
         android:supportsRtl="true"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.popup_activity"></activity>
         <activity
             android:name=".Activities.ProfileActivity"
             android:screenOrientation="portrait"></activity>
