@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -74,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
 
+    String videoTitle;
+    String videoDescp;
+
+    private Key key;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
         sharedVideosButton = findViewById(R.id.sharedVideosButtonID);
         profileButton = findViewById(R.id.profileButtonID);
 
+        storage = FirebaseStorage.getInstance(); // Return object of firebase storage
+        database = FirebaseDatabase.getInstance(); // Return object of firebase database
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         userID = mUser.getUid();
@@ -154,9 +162,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (encryptedFile != null) {
-                    // uploadVideo(encryptedFile);
-                    Toast.makeText(getApplicationContext(),"Path: "+encFilePathUri.toString(), Toast.LENGTH_LONG).show();
+                videoTitle = videoTitleEdtTxt.getEditText().getText().toString();
+                videoDescp = videoDescpEdtTxt.getEditText().getText().toString();
+
+                if (!TextUtils.isEmpty(videoTitle) && !TextUtils.isEmpty(videoDescp)) {
+
+                    if (encFilePathUri != null) {
+                        uploadVideo(encFilePathUri);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Please choose a video", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please provide video title and description", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -212,15 +229,13 @@ public class MainActivity extends AppCompatActivity {
             keyGen = KeyGenerator.getInstance("AES");
             keyGen.init(secureRandom);
 
-            Key key = keyGen.generateKey();
+            key = keyGen.generateKey();
+
+            String keyData = key.getEncoded().toString();
 
             inputFile = new File(filePath);
-
-            // TODO: I want this as a Uri object
             encryptedFile = new File("/storage/emulated/0/enc-file.enc");
-
-            //todo: here is the path in URI
-            encFilePathUri = Uri.parse("/storage/emulated/0/enc-file.enc");
+            encFilePathUri = Uri.fromFile(encryptedFile);
 
             CryptoUtils.encrypt(key, inputFile, encryptedFile);
 
@@ -229,58 +244,63 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    private void uploadVideo(File encryptedFile) {
-//
-//        progressDialog = new ProgressDialog(this);
-//
-//        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-//        progressDialog.setProgress(0);
-//        progressDialog.setTitle("Uploading Video...");
-//
-//        progressDialog.show();
-//
-//        final String fileName = System.currentTimeMillis() + ".enc"; // "" used to cast it to String
-//        final String fileName1 = System.currentTimeMillis() +  "";
-//        final StorageReference storageReference = storage.getReference(); // Return root path
-//
-//        storageReference.child("Videos").child(fileName).putFile()
-//                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//
-//                        String url = taskSnapshot.getDownloadUrl().toString(); // Return url of uploaded file
-//                        // Toast.makeText(MainActivity.this, url, Toast.LENGTH_SHORT).show();
-//                        // Store this Url in realtime database
-//                        DatabaseReference databaseReference = database.getReference(); // Return root path
-//
-//                        databaseReference.child(userID).child(fileName1).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<Void> task) {
-//
-//                                if ( task.isSuccessful() ) {
-//                                    progressDialog.dismiss();
-//                                    Toast.makeText(MainActivity.this, "File Successfully Uploaded", Toast.LENGTH_SHORT).show();
-//                                } else {
-//                                    progressDialog.dismiss();
-//                                    Toast.makeText(MainActivity.this, "File not successfully uploaded", Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        });
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                progressDialog.dismiss();
-//                Toast.makeText(MainActivity.this, "File not successfully uploaded", Toast.LENGTH_SHORT).show();
-//            }
-//        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-//                // Track the progress of file upload
-//
-//                int currentProgress = (int) ( 100 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount() );
-//                progressDialog.setProgress(currentProgress);
-//            }
-//        });
-//    }
+    private void uploadVideo(Uri encFilePathUri) {
+
+        progressDialog = new ProgressDialog(this);
+
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setProgress(0);
+        progressDialog.setTitle("Uploading Video...");
+
+        progressDialog.show();
+
+        final String fileName = System.currentTimeMillis() + ".enc"; // "" used to cast it to String
+        final String fileName1 = System.currentTimeMillis() +  "";
+        final StorageReference storageReference = storage.getReference(); // Return root path
+
+        storageReference.child("Videos").child(fileName).putFile(encFilePathUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        String url = taskSnapshot.getDownloadUrl().toString(); // Return url of uploaded file
+                        // Toast.makeText(MainActivity.this, url, Toast.LENGTH_SHORT).show();
+                        // Store this Url in realtime database
+                        final DatabaseReference databaseReference = database.getReference().child("Videos").child(userID).child(fileName1); // Return root path
+
+                        databaseReference.child("URL").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                if ( task.isSuccessful() ) {
+
+                                    databaseReference.child("Video Title").setValue(videoTitle);
+                                    databaseReference.child("Video Descp").setValue(videoDescp);
+                                    // databaseReference.child("Key").setValue(key);
+                                    progressDialog.dismiss();
+                                    Toast.makeText(MainActivity.this, "Video Successfully Uploaded", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(MainActivity.this, "Video not successfully uploaded", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Toast.makeText(MainActivity.this, "Video not successfully uploaded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                // Track the progress of video upload
+
+                int currentProgress = (int) ( 100 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount() );
+                progressDialog.setProgress(currentProgress);
+            }
+        });
+    }
 }
