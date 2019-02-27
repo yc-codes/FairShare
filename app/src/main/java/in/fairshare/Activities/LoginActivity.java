@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButtonID);
         registrationTextLogin = findViewById(R.id.registrationTextLoginID);
 
-        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
 
         registrationTextLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +85,9 @@ public class LoginActivity extends AppCompatActivity {
                     String email = emailLogin.getEditText().getText().toString();
                     String pwd = passwordLogin.getEditText().getText().toString();
 
+                    mProgressDialog.setCancelable(false);
                     mProgressDialog.setMessage("Logging in...");
+                    mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                     mProgressDialog.show();
 
                     login(email, pwd);

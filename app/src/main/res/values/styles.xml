@@ -15,6 +15,17 @@
         <item name="colorControlHighlight">@color/white</item>
     </style>
 
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">#3C40C6</item>
+        <item name="android:textColorPrimary">#3C40C6</item>
+        <item name="android:background">#95a5a6</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <!--<style name="Widget.Design.TextInputLayout" parent="AppTheme">-->
         <!--&lt;!&ndash;<item name="hintTextAppearance">@style/AppTheme.TextFloatLabelAppearance</item>&ndash;&gt;-->
         <!--<item name="counterTextAppearance">@style/TextAppearance.Design.Counter</item>-->

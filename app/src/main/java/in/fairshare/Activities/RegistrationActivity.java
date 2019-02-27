@@ -63,7 +63,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +86,9 @@ public class RegistrationActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(fullName) &&
                 !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
 
+            mProgressDialog.setCancelable(false);
             mProgressDialog.setMessage("Creating Account...");
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             mProgressDialog.show();
 
             mAuth.createUserWithEmailAndPassword(email, password)

@@ -217,12 +217,16 @@ public class MainActivity extends AppCompatActivity {
             if (resultData != null) {
 
                 uri = resultData.getData();
+
+                if (Build.VERSION.SDK_INT > 19){
+                    filePath = RealPathUtil.getRealPathFromURI_API19(MainActivity.this, uri);
+                }
             }
         }
 
-        if (Build.VERSION.SDK_INT > 19){
-            filePath = RealPathUtil.getRealPathFromURI_API19(MainActivity.this, uri);
-        }
+//        if (Build.VERSION.SDK_INT > 19){
+//            filePath = RealPathUtil.getRealPathFromURI_API19(MainActivity.this, uri);
+//        }
 
         // Encryption is done here
         try {
@@ -243,14 +247,15 @@ public class MainActivity extends AppCompatActivity {
             CryptoUtils.encrypt(key, inputFile, encryptedFile);
 
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(),"Exception" + e,Toast.LENGTH_LONG).show();
+            // Toast.makeText(getApplicationContext(),"Exception" + e,Toast.LENGTH_LONG).show();
         }
     }
 
     private void uploadVideo(Uri encFilePathUri) {
 
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
 
+        progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setProgress(0);
         progressDialog.setTitle("Uploading Video...");
