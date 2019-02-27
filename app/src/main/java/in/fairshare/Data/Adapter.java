@@ -6,9 +6,13 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -47,10 +51,44 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
 
         viewHolder.videoTitle.setText(videoTitle.get(i));
         viewHolder.videoDescp.setText(videoDescp.get(i));
+
+        viewHolder.option.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                PopupMenu popupMenu = new PopupMenu(context, viewHolder.option);
+                popupMenu.inflate(R.menu.menu);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        switch (item.getItemId()) {
+
+                            case R.id.menu_deletevideo:
+                                Toast.makeText(context, "Delete Video", Toast.LENGTH_SHORT).show();
+                                break;
+
+                            case R.id.menu_sharevideo:
+                                Toast.makeText(context, "Share Video", Toast.LENGTH_SHORT).show();
+                                break;
+
+                            case R.id.menu_rtvshracs:
+                                Toast.makeText(context, "Retrieve Share Access", Toast.LENGTH_SHORT).show();
+                                break;
+
+                            default:
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
     }
 
     @Override
@@ -62,18 +100,20 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         private TextView videoTitle;
         private TextView videoDescp;
+        private TextView option;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             videoTitle = itemView.findViewById(R.id.videoTitleID);
             videoDescp = itemView.findViewById(R.id.videoDescpID);
+            option = itemView.findViewById(R.id.optionID);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    // TODO: Tap on card on play video
+                    // TODO: Tap on card to play video
 
                     int position = recyclerView.getChildLayoutPosition(v);
 

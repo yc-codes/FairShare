@@ -2,19 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_upload"
-        android:icon="@drawable/upload"
-        android:title="Uploads"
+        android:id="@+id/menu_deletevideo"
+        android:title="Delete Video"
             />
     <item
-        android:id="@+id/nav_shared"
-        android:icon="@drawable/shared"
-        android:title="Shared"
+        android:id="@+id/menu_sharevideo"
+        android:title="Share Video"
         />
     <item
-        android:id="@+id/nav_profile"
-        android:icon="@drawable/profile"
-        android:title="Profile"
+        android:id="@+id/menu_rtvshracs"
+        android:title="Retrieve Share Access"
         />
 
 </menu>

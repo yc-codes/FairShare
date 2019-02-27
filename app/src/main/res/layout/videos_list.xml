@@ -1,53 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="15dp"
-    android:layout_height="wrap_content">
+    android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardViewID"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="3dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="3dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp">
-            
+
             <ImageView
                 android:id="@+id/videoImageID"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:background="@drawable/videothumbnail"/>
+                android:background="@drawable/videothumbnail" />
 
             <TextView
                 android:id="@+id/videoTitleID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_toRightOf="@id/videoImageID"
                 android:padding="5dp"
-                android:textStyle="bold"
-                android:textSize="22sp"
-                android:textColor="#3C40C6"
                 android:text="Video Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textColor="#3C40C6"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/videoDescpID"
-                android:layout_centerHorizontal="true"
-                android:layout_toRightOf="@id/videoImageID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/videoTitleID"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/videoImageID"
                 android:padding="5dp"
                 android:text="Video Description"
                 android:textColor="#3C40C6"
-                android:textSize="18sp"
-                android:layout_marginTop="5dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/optionID"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="&#8942;"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
