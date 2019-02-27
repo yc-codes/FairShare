@@ -38,9 +38,14 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.security.Key;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
 import java.security.SecureRandom;
 
+import javax.crypto.KeyAgreement;
 import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 
 import in.fairshare.Data.CryptoUtils;
 import in.fairshare.Data.RealPathUtil;
@@ -73,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
     String userID;
 
     private ProgressDialog progressDialog;
+
+    PublicKey pubKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,13 +180,11 @@ public class MainActivity extends AppCompatActivity {
 
             performFileSearch();
         } else {
-
             Toast.makeText(MainActivity.this, "Please provide permission", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void performFileSearch() {
-
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("video/*");
@@ -283,4 +288,5 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
+
 }
