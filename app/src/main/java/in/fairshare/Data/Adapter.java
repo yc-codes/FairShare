@@ -14,8 +14,14 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
+import in.fairshare.Activities.VideosActivity;
 import in.fairshare.R;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
@@ -25,20 +31,23 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     ArrayList<String> videoTitle = new ArrayList<>();
     ArrayList<String> videoDescp = new ArrayList<>();
     ArrayList<String> url = new ArrayList<>();
+    ArrayList<String> fileName = new ArrayList<>();
 
-    public Adapter(RecyclerView recyclerView, Context context, ArrayList<String> videoTitle, ArrayList<String> videoDescp, ArrayList<String> url) {
+    public Adapter(RecyclerView recyclerView, Context context, ArrayList<String> videoTitle, ArrayList<String> videoDescp, ArrayList<String> url, ArrayList<String> fileName) {
         this.recyclerView = recyclerView;
         this.context = context;
         this.videoTitle = videoTitle;
         this.videoDescp = videoDescp;
         this.url = url;
+        this.fileName = fileName;
     }
 
-    public void update(String videoTitles, String videoDescps, String videoUrls) {
+    public void update(String videoTitles, String videoDescps, String videoUrls, String filename) {
 
         videoTitle.add(videoTitles);
         videoDescp.add(videoDescps);
         url.add(videoUrls);
+        fileName.add(filename);
         notifyDataSetChanged(); // Refreshes the recyclerView automatically
     }
 
@@ -55,12 +64,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         viewHolder.videoTitle.setText(videoTitle.get(i));
         viewHolder.videoDescp.setText(videoDescp.get(i));
+        // viewHolder.fileName.setText(fileName.get(i));
+
+        final int currentItem = i;
 
         viewHolder.option.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                PopupMenu popupMenu = new PopupMenu(context, viewHolder.option);
+                final PopupMenu popupMenu = new PopupMenu(context, viewHolder.option);
                 popupMenu.inflate(R.menu.menu);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -70,6 +82,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
                             case R.id.menu_deletevideo:
                                 Toast.makeText(context, "Delete Video", Toast.LENGTH_SHORT).show();
+                                VideosActivity videosActivity = new VideosActivity();
+                                // videosActivity.delete(fileName.get(currentItem));
                                 break;
 
                             case R.id.menu_sharevideo:
@@ -101,6 +115,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         private TextView videoTitle;
         private TextView videoDescp;
         private TextView option;
+        // private TextView fileName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -108,6 +123,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             videoTitle = itemView.findViewById(R.id.videoTitleID);
             videoDescp = itemView.findViewById(R.id.videoDescpID);
             option = itemView.findViewById(R.id.optionID);
+            // fileName = itemView.findViewById(R.id.fileNameID);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

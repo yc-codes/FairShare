@@ -1,6 +1,7 @@
 package in.fairshare.Activities;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -28,12 +32,11 @@ public class VideosActivity extends AppCompatActivity {
 
     private FirebaseUser mUser;
     private FirebaseAuth mAuth;
-    String userID;
+    public String userID;
 
     private RecyclerView recyclerView;
 
     public String filename;
-    public Map<String, Object> map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,33 +52,6 @@ public class VideosActivity extends AppCompatActivity {
         userID = intent.getStringExtra("userID");
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Videos").child(userID);
-
-//        ValueEventListener valueEventListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                try {
-//                    // filename = dataSnapshot.getValue(String.class);
-//                    map = (Map<String, Object>) dataSnapshot.getValue();
-//                    // Toast.makeText(VideosActivity.this, filename, Toast.LENGTH_LONG).show();
-//                    // Log.d("Filename: ", map.toString());
-//
-//                    for (String value : map.keySet()) {
-//                        Log.d("Value: ", value);
-//                        filename = value;
-//                    }
-//
-//                } catch (Exception e) {
-//                    Toast.makeText(VideosActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        };
-//        databaseReference.addListenerForSingleValueEvent(valueEventListener);
 
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -94,7 +70,7 @@ public class VideosActivity extends AppCompatActivity {
                         String videoDescp = dataSnapshot.child("Video Descp").getValue(String.class);
                         String videoUrl = dataSnapshot.child("URL").getValue(String.class);
 
-                        ((Adapter)recyclerView.getAdapter()).update(videoTitle,videoDescp,videoUrl);
+                        ((Adapter)recyclerView.getAdapter()).update(videoTitle,videoDescp,videoUrl,filename);
                     }
 
                     @Override
@@ -128,7 +104,25 @@ public class VideosActivity extends AppCompatActivity {
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(VideosActivity.this));
-        Adapter adapter = new Adapter(recyclerView, VideosActivity.this, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>());
+        Adapter adapter = new Adapter(recyclerView, VideosActivity.this, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>());
         recyclerView.setAdapter(adapter);
+    }
+
+    public void delete(String filename) {
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(userID).child(filename);
+        databaseReference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                Toast.makeText(VideosActivity.this, "Video Successfully Deleted!", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                Toast.makeText(VideosActivity.this, "Can't Delete Video!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
