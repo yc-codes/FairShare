@@ -31,22 +31,25 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     ArrayList<String> videoTitle = new ArrayList<>();
     ArrayList<String> videoDescp = new ArrayList<>();
     ArrayList<String> url = new ArrayList<>();
+    ArrayList<String> key = new ArrayList<>();
     ArrayList<String> fileName = new ArrayList<>();
 
-    public Adapter(RecyclerView recyclerView, Context context, ArrayList<String> videoTitle, ArrayList<String> videoDescp, ArrayList<String> url, ArrayList<String> fileName) {
+    public Adapter(RecyclerView recyclerView, Context context, ArrayList<String> videoTitle, ArrayList<String> videoDescp, ArrayList<String> url, ArrayList<String> key, ArrayList<String> fileName) {
         this.recyclerView = recyclerView;
         this.context = context;
         this.videoTitle = videoTitle;
         this.videoDescp = videoDescp;
         this.url = url;
+        this.key = key;
         this.fileName = fileName;
     }
 
-    public void update(String videoTitles, String videoDescps, String videoUrls, String filename) {
+    public void update(String videoTitles, String videoDescps, String videoUrls, String keys, String filename) {
 
         videoTitle.add(videoTitles);
         videoDescp.add(videoDescps);
         url.add(videoUrls);
+        key.add(keys);
         fileName.add(filename);
         notifyDataSetChanged(); // Refreshes the recyclerView automatically
     }
@@ -132,11 +135,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     // TODO: Tap on card to play video
 
                     int position = recyclerView.getChildLayoutPosition(v);
+//
+//                    Intent intent = new Intent();
+//                    intent.setType(Intent.ACTION_VIEW); // Denotes that we are going to view something
+//                    intent.setData(Uri.parse(url.get(position)));
+//                    context.startActivity(intent);
 
-                    Intent intent = new Intent();
-                    intent.setType(Intent.ACTION_VIEW); // Denotes that we are going to view something
-                    intent.setData(Uri.parse(url.get(position)));
-                    context.startActivity(intent);
+                    Toast.makeText(context, key.get(position), Toast.LENGTH_LONG).show();
                 }
             });
         }

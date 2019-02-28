@@ -69,8 +69,9 @@ public class VideosActivity extends AppCompatActivity {
                         String videoTitle = dataSnapshot.child("Video Title").getValue(String.class);
                         String videoDescp = dataSnapshot.child("Video Descp").getValue(String.class);
                         String videoUrl = dataSnapshot.child("URL").getValue(String.class);
+                        String key = dataSnapshot.child("Key").getValue(String.class);
 
-                        ((Adapter)recyclerView.getAdapter()).update(videoTitle,videoDescp,videoUrl,filename);
+                        ((Adapter)recyclerView.getAdapter()).update(videoTitle,videoDescp,videoUrl,key,filename);
                     }
 
                     @Override
@@ -104,7 +105,7 @@ public class VideosActivity extends AppCompatActivity {
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(VideosActivity.this));
-        Adapter adapter = new Adapter(recyclerView, VideosActivity.this, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>());
+        Adapter adapter = new Adapter(recyclerView, VideosActivity.this, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>());
         recyclerView.setAdapter(adapter);
     }
 

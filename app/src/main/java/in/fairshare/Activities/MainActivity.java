@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.util.Base64Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,8 +41,10 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.security.Key;
 import java.security.SecureRandom;
+import java.util.Base64;
 
 import javax.crypto.KeyGenerator;
+import javax.crypto.spec.SecretKeySpec;
 
 import in.fairshare.Data.CryptoUtils;
 import in.fairshare.Data.RealPathUtil;
@@ -79,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     String videoDescp;
 
     private Key key;
+    private String stringKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,15 +234,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Encryption is done here
         try {
-            SecureRandom secureRandom = new SecureRandom();
-
             KeyGenerator keyGen;
             keyGen = KeyGenerator.getInstance("AES");
-            keyGen.init(secureRandom);
+            keyGen.init(128);
 
             key = keyGen.generateKey();
 
-            String keyData = key.getEncoded().toString();
+            stringKey = Base64Utils.encode(key.getEncoded());
+
+            //byte[] encodedKey = Base64Utils.decode(stringKey);
+
+            //Key orgKey = new SecretKeySpec(encodedKey, 0, encodedKey.length,"AES");
 
             inputFile = new File(filePath);
             encryptedFile = new File("/storage/emulated/0/enc-file.enc");
@@ -284,6 +290,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     databaseReference.child("Video Title").setValue(videoTitle);
                                     databaseReference.child("Video Descp").setValue(videoDescp);
+                                    databaseReference.child("Key").setValue(stringKey);
                                     // databaseReference.child("Key").setValue(key);
                                     progressDialog.dismiss();
                                     Toast.makeText(MainActivity.this, "Video Successfully Uploaded", Toast.LENGTH_SHORT).show();
