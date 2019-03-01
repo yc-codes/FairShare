@@ -2,29 +2,22 @@ package in.fairshare.Data;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import in.fairshare.Activities.VideoPlayerActivity;
 import in.fairshare.Activities.VideosActivity;
 import in.fairshare.R;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     RecyclerView  recyclerView;
     Context context;
@@ -34,7 +27,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     ArrayList<String> key = new ArrayList<>();
     ArrayList<String> fileName = new ArrayList<>();
 
-    public Adapter(RecyclerView recyclerView, Context context, ArrayList<String> videoTitle, ArrayList<String> videoDescp, ArrayList<String> url, ArrayList<String> key, ArrayList<String> fileName) {
+    public MyAdapter(RecyclerView recyclerView, Context context, ArrayList<String> videoTitle, ArrayList<String> videoDescp, ArrayList<String> url, ArrayList<String> key, ArrayList<String> fileName) {
         this.recyclerView = recyclerView;
         this.context = context;
         this.videoTitle = videoTitle;
@@ -44,13 +37,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         this.fileName = fileName;
     }
 
-    public void update(String videoTitles, String videoDescps, String videoUrls, String keys, String filename) {
+    public void update(String videoTitles, String videoDescps, String videoUrls, String keys, String fileNames) {
 
         videoTitle.add(videoTitles);
         videoDescp.add(videoDescps);
         url.add(videoUrls);
         key.add(keys);
-        fileName.add(filename);
+        fileName.add(fileNames);
         notifyDataSetChanged(); // Refreshes the recyclerView automatically
     }
 
@@ -63,17 +56,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
 
         viewHolder.videoTitle.setText(videoTitle.get(i));
         viewHolder.videoDescp.setText(videoDescp.get(i));
         // viewHolder.fileName.setText(fileName.get(i));
 
-        final int currentItem = i;
-
         viewHolder.option.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // final int position = recyclerView.getChildLayoutPosition(v);
 
                 final PopupMenu popupMenu = new PopupMenu(context, viewHolder.option);
                 popupMenu.inflate(R.menu.menu);
@@ -84,17 +77,25 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                         switch (item.getItemId()) {
 
                             case R.id.menu_deletevideo:
-                                Toast.makeText(context, "Delete Video", Toast.LENGTH_SHORT).show();
+
                                 VideosActivity videosActivity = new VideosActivity();
-                                // videosActivity.delete(fileName.get(currentItem));
+                                videosActivity.delete(fileName.get(i));
                                 break;
 
                             case R.id.menu_sharevideo:
-                                Toast.makeText(context, "Share Video", Toast.LENGTH_SHORT).show();
+
+                                String shareVideoTitle = videoTitle.get(i);
+                                String shareVideoDescp = videoDescp.get(i);
+                                String shareVideoUrl = url.get(i);
+                                String shareVideoKey  = key.get(i);
+                                String shareVideoFileName = fileName.get(i);
+
+                                VideosActivity videosActivity1 = new VideosActivity();
+                                videosActivity1.share(shareVideoTitle, shareVideoDescp, shareVideoUrl,shareVideoKey, shareVideoFileName);
                                 break;
 
                             case R.id.menu_rtvshracs:
-                                Toast.makeText(context, "Retrieve Share Access", Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(context, "Retrieve Share Access", Toast.LENGTH_SHORT).show();
                                 break;
 
                             default:
@@ -110,7 +111,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return videoTitle.size();
+        return fileName.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -135,13 +136,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     // TODO: Tap on card to play video
 
                     int position = recyclerView.getChildLayoutPosition(v);
-//
-//                    Intent intent = new Intent();
-//                    intent.setType(Intent.ACTION_VIEW); // Denotes that we are going to view something
-//                    intent.setData(Uri.parse(url.get(position)));
-//                    context.startActivity(intent);
 
-                    Toast.makeText(context, key.get(position), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(context, VideoPlayerActivity.class);
+                    intent.putExtra("URL", url.get(position));
+                    intent.putExtra("STRING_KEY", key.get(position));
+                    context.startActivity(intent);
                 }
             });
         }

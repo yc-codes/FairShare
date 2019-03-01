@@ -44,6 +44,7 @@ import java.security.SecureRandom;
 import java.util.Base64;
 
 import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 import in.fairshare.Data.CryptoUtils;
@@ -81,8 +82,10 @@ public class MainActivity extends AppCompatActivity {
     String videoTitle;
     String videoDescp;
 
-    private Key key;
+    private SecretKey keyFromString;
     private String stringKey;
+    private byte[] encodedKey;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +124,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(MainActivity.this, SharedVideosActivity.class);
+                intent.putExtra("userID", userID);
+                startActivity(intent);
             }
         });
 
@@ -238,22 +244,20 @@ public class MainActivity extends AppCompatActivity {
             keyGen = KeyGenerator.getInstance("AES");
             keyGen.init(128);
 
-            key = keyGen.generateKey();
+            SecretKey secretKey = keyGen.generateKey();
 
-            stringKey = Base64Utils.encode(key.getEncoded());
-
-            //byte[] encodedKey = Base64Utils.decode(stringKey);
-
-            //Key orgKey = new SecretKeySpec(encodedKey, 0, encodedKey.length,"AES");
+            stringKey = Base64Utils.encode(secretKey.getEncoded());
+            encodedKey = Base64Utils.decode(stringKey);
+            keyFromString = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
 
             inputFile = new File(filePath);
-            encryptedFile = new File("/storage/emulated/0/enc-file.enc");
+            encryptedFile = File.createTempFile("encryptedFile","enc");
             encFilePathUri = Uri.fromFile(encryptedFile);
 
-            CryptoUtils.encrypt(key, inputFile, encryptedFile);
+            CryptoUtils.encrypt(keyFromString, inputFile, encryptedFile);
 
         } catch (Exception e) {
-            // Toast.makeText(getApplicationContext(),"Exception" + e,Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Failed!" + e,Toast.LENGTH_LONG).show();
         }
     }
 
@@ -291,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
                                     databaseReference.child("Video Title").setValue(videoTitle);
                                     databaseReference.child("Video Descp").setValue(videoDescp);
                                     databaseReference.child("Key").setValue(stringKey);
-                                    // databaseReference.child("Key").setValue(key);
+                                    databaseReference.child("Filename").setValue(fileName1);
                                     progressDialog.dismiss();
                                     Toast.makeText(MainActivity.this, "Video Successfully Uploaded", Toast.LENGTH_SHORT).show();
                                 } else {

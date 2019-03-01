@@ -1,11 +1,14 @@
 package in.fairshare.Activities;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,21 +25,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Map;
 
-import in.fairshare.Data.Adapter;
-import in.fairshare.Data.VideoInformation;
+import in.fairshare.Data.MyAdapter;
 import in.fairshare.R;
 
 public class VideosActivity extends AppCompatActivity {
 
     private FirebaseUser mUser;
     private FirebaseAuth mAuth;
-    public String userID;
+    private static String userID;
+
+    private static DatabaseReference mDatabaseReference;
 
     private RecyclerView recyclerView;
 
     public String filename;
+
+    private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +50,15 @@ public class VideosActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerViewID);
 
+        context = getApplicationContext();
+
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
         Intent intent = getIntent();
         userID = intent.getStringExtra("userID");
+
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Shared Video");
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Videos").child(userID);
 
@@ -70,8 +79,9 @@ public class VideosActivity extends AppCompatActivity {
                         String videoDescp = dataSnapshot.child("Video Descp").getValue(String.class);
                         String videoUrl = dataSnapshot.child("URL").getValue(String.class);
                         String key = dataSnapshot.child("Key").getValue(String.class);
+                        String fileName =  dataSnapshot.child("Filename").getValue(String.class);
 
-                        ((Adapter)recyclerView.getAdapter()).update(videoTitle,videoDescp,videoUrl,key,filename);
+                        ((MyAdapter)recyclerView.getAdapter()).update(videoTitle,videoDescp,videoUrl,key,fileName);
                     }
 
                     @Override
@@ -105,25 +115,61 @@ public class VideosActivity extends AppCompatActivity {
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(VideosActivity.this));
-        Adapter adapter = new Adapter(recyclerView, VideosActivity.this, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>());
+        MyAdapter adapter = new MyAdapter(recyclerView, VideosActivity.this, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>());
         recyclerView.setAdapter(adapter);
     }
 
     public void delete(String filename) {
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(userID).child(filename);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Videos").child(userID).child(filename);
         databaseReference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 
-                Toast.makeText(VideosActivity.this, "Video Successfully Deleted!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Video Successfully Deleted!", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
 
-                Toast.makeText(VideosActivity.this, "Can't Delete Video!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Can't Delete Video!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void share(String title, final String descp, final String url, final String key, final String filename) {
+
+        final DatabaseReference shareDatabaseReference = mDatabaseReference.child(filename);
+
+        if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(descp) &&
+                !TextUtils.isEmpty(url) && !TextUtils.isEmpty(key)
+                    && !TextUtils.isEmpty(filename)) {
+
+            shareDatabaseReference.child("Video Title").setValue(title).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    if ( task.isSuccessful() ) {
+
+                        shareDatabaseReference.child("Video Descp").setValue(descp);
+                        shareDatabaseReference.child("URL").setValue(url);
+                        shareDatabaseReference.child("Key").setValue(key);
+                        shareDatabaseReference.child("Filename").setValue(filename);
+
+                        Toast.makeText(context, "Video Successfully Shared!", Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        Toast.makeText(context, "Video not Successfully Shared!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, "Video not Successfully Shared!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(context, "Video not Successfully Shared!", Toast.LENGTH_SHORT).show();
+        }
     }
 }

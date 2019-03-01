@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/profilePictureID"
-        android:src="@drawable/profilepicture"
+        android:src="@drawable/profilepicturemain"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
         android:layout_width="140dp"
