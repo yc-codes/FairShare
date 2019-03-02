@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -58,6 +59,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         keyInString = extras.getString("STRING_KEY");
         encodedKey = Base64Utils.decode(keyInString);
 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         key = new SecretKeySpec(encodedKey, 0, encodedKey.length,"AES");
 
