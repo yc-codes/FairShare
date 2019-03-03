@@ -80,8 +80,9 @@ public class VideosActivity extends AppCompatActivity {
                         String videoUrl = dataSnapshot.child("URL").getValue(String.class);
                         String key = dataSnapshot.child("Key").getValue(String.class);
                         String fileName =  dataSnapshot.child("Filename").getValue(String.class);
+                        String userName = dataSnapshot.child("Username").getValue(String.class);
 
-                        ((MyAdapter)recyclerView.getAdapter()).update(videoTitle,videoDescp,videoUrl,key,fileName);
+                        ((MyAdapter)recyclerView.getAdapter()).update(videoTitle,videoDescp,videoUrl,key,fileName, userName);
                     }
 
                     @Override
@@ -115,7 +116,7 @@ public class VideosActivity extends AppCompatActivity {
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(VideosActivity.this));
-        MyAdapter adapter = new MyAdapter(recyclerView, VideosActivity.this, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>());
+        MyAdapter adapter = new MyAdapter(recyclerView, VideosActivity.this, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>());
         recyclerView.setAdapter(adapter);
     }
 
@@ -137,13 +138,13 @@ public class VideosActivity extends AppCompatActivity {
         });
     }
 
-    public void share(String title, final String descp, final String url, final String key, final String filename) {
+    public void share(String title, final String descp, final String url, final String key, final String filename, final String usernameOfUploadVideoUser, final String userName, String userId) {
 
-        final DatabaseReference shareDatabaseReference = mDatabaseReference.child(filename);
+        final DatabaseReference shareDatabaseReference = mDatabaseReference.child(userId).child(filename);
 
         if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(descp) &&
                 !TextUtils.isEmpty(url) && !TextUtils.isEmpty(key)
-                    && !TextUtils.isEmpty(filename)) {
+                    && !TextUtils.isEmpty(filename) && !TextUtils.isEmpty(usernameOfUploadVideoUser)) {
 
             shareDatabaseReference.child("Video Title").setValue(title).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -155,6 +156,7 @@ public class VideosActivity extends AppCompatActivity {
                         shareDatabaseReference.child("URL").setValue(url);
                         shareDatabaseReference.child("Key").setValue(key);
                         shareDatabaseReference.child("Filename").setValue(filename);
+                        shareDatabaseReference.child("Username").setValue(usernameOfUploadVideoUser);
 
                         Toast.makeText(context, "Video Successfully Shared!", Toast.LENGTH_SHORT).show();
                     } else {

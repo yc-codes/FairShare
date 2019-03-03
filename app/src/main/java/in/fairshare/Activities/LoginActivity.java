@@ -62,11 +62,12 @@ public class LoginActivity extends AppCompatActivity {
 //            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 //
 //                mUser = firebaseAuth.getCurrentUser();
+//                String userID = mUser.getUid();
 //
 //                if (mUser != null) {
 //                    // Toast.makeText(LoginActivity.this, "Signed In!!", Toast.LENGTH_LONG).show();
 //                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                    // intent.putExtra("email", emailLogin);
+//                    intent.putExtra("UserID", userID);
 //                    startActivity(intent);
 //                    finishAffinity();
 //                } else {

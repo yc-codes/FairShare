@@ -36,6 +36,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mDatabase;
+    private FirebaseDatabase userandIdDatabase;
+    private DatabaseReference userandIdDatabaseReference;
     private FirebaseAuth mAuth;
 
     private ProgressDialog mProgressDialog;
@@ -60,6 +62,9 @@ public class RegistrationActivity extends AppCompatActivity {
         // Link DatabaseReference with Firebase Database
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mDatabase.getReference().child("Users");
+
+        userandIdDatabase = FirebaseDatabase.getInstance();
+        userandIdDatabaseReference = userandIdDatabase.getReference().child("UserAndID");
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -104,6 +109,9 @@ public class RegistrationActivity extends AppCompatActivity {
                                 currentUserDb.child("FullName").setValue(fullName);
                                 currentUserDb.child("Email").setValue(email);
                                 currentUserDb.child("Password").setValue(password);
+
+                                DatabaseReference userandIdDatabaseRef = userandIdDatabaseReference.child(userID);
+                                userandIdDatabaseRef.setValue(username);
 
                                 mProgressDialog.dismiss();
 

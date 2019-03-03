@@ -30,9 +30,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ThrowOnExtraProperties;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -86,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
     private String stringKey;
     private byte[] encodedKey;
 
+    private static String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         userID = mUser.getUid();
+
+//        Intent intent = getIntent();
+//        userID = intent.getStringExtra("UserID");
 
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -284,6 +291,22 @@ public class MainActivity extends AppCompatActivity {
                         String url = taskSnapshot.getDownloadUrl().toString(); // Return url of uploaded file
                         // Toast.makeText(MainActivity.this, url, Toast.LENGTH_SHORT).show();
                         // Store this Url in realtime database
+
+                        DatabaseReference databaseReferenceForUsername = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+                        ValueEventListener valueEventListener = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                userName = dataSnapshot.child("Username").getValue(String.class);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.d("Username: ", databaseError.getMessage()); //Don't ignore errors!
+                            }
+                        };
+                        databaseReferenceForUsername.addListenerForSingleValueEvent(valueEventListener);
+
                         final DatabaseReference databaseReference = database.getReference().child("Videos").child(userID).child(fileName1); // Return root path
 
                         databaseReference.child("URL").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -296,6 +319,7 @@ public class MainActivity extends AppCompatActivity {
                                     databaseReference.child("Video Descp").setValue(videoDescp);
                                     databaseReference.child("Key").setValue(stringKey);
                                     databaseReference.child("Filename").setValue(fileName1);
+                                    databaseReference.child("Username").setValue(userName);
                                     progressDialog.dismiss();
                                     Toast.makeText(MainActivity.this, "Video Successfully Uploaded", Toast.LENGTH_SHORT).show();
                                 } else {

@@ -56,7 +56,7 @@ public class SharedVideosActivity extends AppCompatActivity {
         Intent intent = getIntent();
         userID = intent.getStringExtra("userID");
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Shared Video");//.child(userID);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Shared Video").child(userID);
 
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -65,7 +65,7 @@ public class SharedVideosActivity extends AppCompatActivity {
                 filename = dataSnapshot.getKey();
                 Log.d("Filename", filename);
 
-                DatabaseReference databaseReferenceMain = FirebaseDatabase.getInstance().getReference().child("Shared Video").child(filename);
+                DatabaseReference databaseReferenceMain = FirebaseDatabase.getInstance().getReference().child("Shared Video").child(userID).child(filename);
 
                 ValueEventListener valueEventListener = new ValueEventListener() {
                     @Override
@@ -76,8 +76,9 @@ public class SharedVideosActivity extends AppCompatActivity {
                         String sharedVideoUrl = dataSnapshot.child("URL").getValue(String.class);
                         String sharedVideoKey = dataSnapshot.child("Key").getValue(String.class);
                         String sharedVideoFileName = dataSnapshot.child("Filename").getValue(String.class);
+                        String sharedVideoUsername = dataSnapshot.child("Username").getValue(String.class);
 
-                        ((SharedVideosAdapter)sharedVideoRecyclerView.getAdapter()).updateShare(sharedVideoTitle,sharedVideoDescp,sharedVideoUrl,sharedVideoKey,sharedVideoFileName);
+                        ((SharedVideosAdapter)sharedVideoRecyclerView.getAdapter()).updateShare(sharedVideoTitle, sharedVideoDescp, sharedVideoUrl, sharedVideoKey, sharedVideoFileName, sharedVideoUsername);
                     }
 
                     @Override
@@ -111,13 +112,13 @@ public class SharedVideosActivity extends AppCompatActivity {
         });
 
         sharedVideoRecyclerView.setLayoutManager(new LinearLayoutManager(SharedVideosActivity.this));
-        SharedVideosAdapter adapter = new SharedVideosAdapter(sharedVideoRecyclerView, SharedVideosActivity.this, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>());
+        SharedVideosAdapter adapter = new SharedVideosAdapter(sharedVideoRecyclerView, SharedVideosActivity.this, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>());
         sharedVideoRecyclerView.setAdapter(adapter);
     }
 
     public void deleteShareVideo(String filename) {
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Shared Video").child(filename);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Shared Video").child(userID).child(filename);
         databaseReference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

@@ -20,4 +20,6 @@
     <string name="video_title">Video Title</string>
     <string name="choose_video">Choose Video</string>
     <string name="upload_video">Upload Video</string>
+    <string name="save">Save</string>
+    <string name="sharedby">Shared by :</string>
 </resources>
