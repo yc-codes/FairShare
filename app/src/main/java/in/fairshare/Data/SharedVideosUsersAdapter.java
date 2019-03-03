@@ -70,6 +70,8 @@ public class SharedVideosUsersAdapter extends RecyclerView.Adapter<SharedVideosU
                     myAdapter.usersData(username.get(i), userID.get(i));
                 } else {
 
+                    MyAdapter myAdapter = new MyAdapter();
+                    myAdapter.usersDataShareAccessDelete(username.get(i), userID.get(i));
                 }
             }
         });

@@ -112,10 +112,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                                 context.startActivity(new Intent(context, SharedVideosUsersActivity.class));
                                 break;
 
-                            case R.id.menu_rtvshracs:
-                                // Toast.makeText(context, "Retrieve Share Access", Toast.LENGTH_SHORT).show();
-                                break;
-
                             default:
                                 break;
                         }
@@ -171,5 +167,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         VideosActivity videosActivity1 = new VideosActivity();
         videosActivity1.share(shareVideoTitle, shareVideoDescp, shareVideoUrl,shareVideoKey, shareVideoFileName, shareVideoUserName, userName, userId);
+    }
+
+    public void usersDataShareAccessDelete(String username, String userID) {
+
+        String userName = username;
+        String userId = userID;
+
+        VideosActivity videosActivity1 = new VideosActivity();
+        videosActivity1.shareAccessDelete(shareVideoTitle, shareVideoDescp, shareVideoUrl,shareVideoKey, shareVideoFileName, shareVideoUserName, userName, userId);
     }
 }

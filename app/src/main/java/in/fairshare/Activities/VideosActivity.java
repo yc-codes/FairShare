@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -173,5 +174,24 @@ public class VideosActivity extends AppCompatActivity {
         } else {
             Toast.makeText(context, "Video not Successfully Shared!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void shareAccessDelete(String title, final String descp, final String url, final String key, final String filename, final String usernameOfUploadVideoUser, final String userName, String userId) {
+
+        DatabaseReference shareDatabaseReference = mDatabaseReference.child(userId).child(filename);
+
+        shareDatabaseReference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+                Toast.makeText(context, "Video Access Successfully Retrieved!", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                Toast.makeText(context, "Video Access not Successfully Retrieved!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

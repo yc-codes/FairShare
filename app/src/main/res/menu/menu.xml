@@ -9,9 +9,4 @@
         android:id="@+id/menu_sharevideo"
         android:title="Share Video"
         />
-    <item
-        android:id="@+id/menu_rtvshracs"
-        android:title="Retrieve Share Access"
-        />
-
 </menu>
