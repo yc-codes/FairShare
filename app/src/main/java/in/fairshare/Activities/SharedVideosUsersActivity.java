@@ -43,40 +43,6 @@ public class SharedVideosUsersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shared_videos_users);
 
-//        shareVideosLinearLayout = findViewById(R.id.shareVideosLinearLayoutID);
-//        shareVideosSaveButton = findViewById(R.id.shareVideosSaveButtonID);
-//
-//        String[] strtext = {"CheckBox1", "CheckBox2", "CheckBox3", "CheckBox4", "CheckBox5"};
-//        final ArrayList<String> list_checkboxs = new ArrayList<>();
-//
-//        for (int i = 0; i < 5 ; i++) {
-//
-//            CheckBox checkBox = new CheckBox(getApplicationContext());
-//            checkBox.setText(strtext[i]);
-//            shareVideosLinearLayout.addView(checkBox);
-//
-//            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//
-//                    if (isChecked) {
-//
-//                        list_checkboxs.add(buttonView.getText().toString());
-//                    } else {
-//
-//                        list_checkboxs.remove(list_checkboxs.indexOf(buttonView.getText().toString()));
-//                    }
-//                }
-//            });
-//        }
-//
-//        shareVideosSaveButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "CheckBox Checked:" + list_checkboxs, Toast.LENGTH_LONG).show();
-//            }
-//        });
-
         sharedVideosUsersRecyclerView = findViewById(R.id.sharedVideosUsersRecyclerViewID);
 
         mAuth = FirebaseAuth.getInstance();

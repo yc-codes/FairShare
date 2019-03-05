@@ -139,7 +139,9 @@ public class VideosActivity extends AppCompatActivity {
         });
     }
 
-    public void share(String title, final String descp, final String url, final String key, final String filename, final String usernameOfUploadVideoUser, final String userName, String userId) {
+    public void share(String title, final String descp, final String url, final String key, final String filename, final String usernameOfUploadVideoUser, final String userName, String userId, String date) {
+
+        final String currentDate = date;
 
         final DatabaseReference shareDatabaseReference = mDatabaseReference.child(userId).child(filename);
 
@@ -158,6 +160,7 @@ public class VideosActivity extends AppCompatActivity {
                         shareDatabaseReference.child("Key").setValue(key);
                         shareDatabaseReference.child("Filename").setValue(filename);
                         shareDatabaseReference.child("Username").setValue(usernameOfUploadVideoUser);
+                        shareDatabaseReference.child("Video Shared Date").setValue(currentDate);
 
                         Toast.makeText(context, "Video Successfully Shared!", Toast.LENGTH_SHORT).show();
                     } else {

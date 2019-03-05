@@ -77,8 +77,9 @@ public class SharedVideosActivity extends AppCompatActivity {
                         String sharedVideoKey = dataSnapshot.child("Key").getValue(String.class);
                         String sharedVideoFileName = dataSnapshot.child("Filename").getValue(String.class);
                         String sharedVideoUsername = dataSnapshot.child("Username").getValue(String.class);
+                        String sharedVideoDate = dataSnapshot.child("Video Shared Date").getValue(String.class);
 
-                        ((SharedVideosAdapter)sharedVideoRecyclerView.getAdapter()).updateShare(sharedVideoTitle, sharedVideoDescp, sharedVideoUrl, sharedVideoKey, sharedVideoFileName, sharedVideoUsername);
+                        ((SharedVideosAdapter)sharedVideoRecyclerView.getAdapter()).updateShare(sharedVideoTitle, sharedVideoDescp, sharedVideoUrl, sharedVideoKey, sharedVideoFileName, sharedVideoUsername, sharedVideoDate);
                     }
 
                     @Override
@@ -112,7 +113,7 @@ public class SharedVideosActivity extends AppCompatActivity {
         });
 
         sharedVideoRecyclerView.setLayoutManager(new LinearLayoutManager(SharedVideosActivity.this));
-        SharedVideosAdapter adapter = new SharedVideosAdapter(sharedVideoRecyclerView, SharedVideosActivity.this, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>());
+        SharedVideosAdapter adapter = new SharedVideosAdapter(sharedVideoRecyclerView, SharedVideosActivity.this, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>());
         sharedVideoRecyclerView.setAdapter(adapter);
     }
 

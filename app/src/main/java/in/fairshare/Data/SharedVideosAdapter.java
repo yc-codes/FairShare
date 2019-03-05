@@ -28,8 +28,9 @@ public class SharedVideosAdapter extends RecyclerView.Adapter<SharedVideosAdapte
     ArrayList<String> sharedVideoKey = new ArrayList<>();
     ArrayList<String> sharedVideoFileName = new ArrayList<>();
     ArrayList<String> sharedVideoUsername = new ArrayList<>();
+    ArrayList<String> sharedVideoDate = new ArrayList<>();
 
-    public SharedVideosAdapter(RecyclerView recyclerView, Context context, ArrayList<String> sharedVideoTitle, ArrayList<String> sharedVideoDescp, ArrayList<String> sharedVideoUrl, ArrayList<String> sharedVideoKey, ArrayList<String> sharedVideoFileName, ArrayList<String> sharedVideoUsername) {
+    public SharedVideosAdapter(RecyclerView recyclerView, Context context, ArrayList<String> sharedVideoTitle, ArrayList<String> sharedVideoDescp, ArrayList<String> sharedVideoUrl, ArrayList<String> sharedVideoKey, ArrayList<String> sharedVideoFileName, ArrayList<String> sharedVideoUsername, ArrayList<String> sharedVideoDate) {
         this.recyclerView = recyclerView;
         this.context = context;
         this.sharedVideoTitle = sharedVideoTitle;
@@ -38,9 +39,10 @@ public class SharedVideosAdapter extends RecyclerView.Adapter<SharedVideosAdapte
         this.sharedVideoKey = sharedVideoKey;
         this.sharedVideoFileName = sharedVideoFileName;
         this.sharedVideoUsername = sharedVideoUsername;
+        this.sharedVideoDate = sharedVideoDate;
     }
 
-    public void updateShare(String sharedVideoTitles, String sharedVideoDescps, String sharedVideoUrls, String sharedVideoKeys, String sharedVideoFileNames, String sharedVideoUsernames) {
+    public void updateShare(String sharedVideoTitles, String sharedVideoDescps, String sharedVideoUrls, String sharedVideoKeys, String sharedVideoFileNames, String sharedVideoUsernames, String sharedVideoDates) {
 
         sharedVideoTitle.add(sharedVideoTitles);
         sharedVideoDescp.add(sharedVideoDescps);
@@ -48,6 +50,7 @@ public class SharedVideosAdapter extends RecyclerView.Adapter<SharedVideosAdapte
         sharedVideoKey.add(sharedVideoKeys);
         sharedVideoFileName.add(sharedVideoFileNames);
         sharedVideoUsername.add(sharedVideoUsernames);
+        sharedVideoDate.add(sharedVideoDates);
         notifyDataSetChanged(); // Refreshes the recyclerView automatically
     }
 
@@ -65,6 +68,7 @@ public class SharedVideosAdapter extends RecyclerView.Adapter<SharedVideosAdapte
         viewHolder.sharedVideoTitle.setText(sharedVideoTitle.get(i));
         viewHolder.sharedVideoDescp.setText(sharedVideoDescp.get(i));
         viewHolder.sharedVideoUsername.setText(sharedVideoUsername.get(i));
+        viewHolder.sharedVideoDate.setText(sharedVideoDate.get(i));
         // viewHolder.sharedVideoFileName.setText(sharedVideoFileName.get(i));
 
         viewHolder.sharedVideoOption.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +111,8 @@ public class SharedVideosAdapter extends RecyclerView.Adapter<SharedVideosAdapte
         private TextView sharedVideoTitle;
         private TextView sharedVideoDescp;
         private TextView sharedVideoOption;
-        private TextView sharedVideoUsername;;
+        private TextView sharedVideoUsername;
+        private TextView sharedVideoDate;
         // private TextView sharedVideoFileName;
 
         public ViewHolder(@NonNull View itemView) {
@@ -117,6 +122,7 @@ public class SharedVideosAdapter extends RecyclerView.Adapter<SharedVideosAdapte
             sharedVideoDescp = itemView.findViewById(R.id.sharedVideoDescpID);
             sharedVideoOption = itemView.findViewById(R.id.sharedVideoOptionID);
             sharedVideoUsername = itemView.findViewById(R.id.sharedVideoUsernameID);
+            sharedVideoDate = itemView.findViewById(R.id.sharedVideoDateID);
             // sharedVideoFileName = itemView.findViewById(R.id.sharedVideoFileNameID);
 
             itemView.setOnClickListener(new View.OnClickListener() {

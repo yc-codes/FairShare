@@ -160,13 +160,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
-    public void usersData(String username, String userID) {
+    public void usersData(String username, String userID, String date) {
 
         String userName = username;
         String userId = userID;
+        String currentDate = date;
 
         VideosActivity videosActivity1 = new VideosActivity();
-        videosActivity1.share(shareVideoTitle, shareVideoDescp, shareVideoUrl,shareVideoKey, shareVideoFileName, shareVideoUserName, userName, userId);
+        videosActivity1.share(shareVideoTitle, shareVideoDescp, shareVideoUrl,shareVideoKey, shareVideoFileName, shareVideoUserName, userName, userId, currentDate);
     }
 
     public void usersDataShareAccessDelete(String username, String userID) {
