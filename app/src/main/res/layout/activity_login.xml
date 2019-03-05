@@ -106,4 +106,17 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white" />
 
+   <TextView
+       android:id="@+id/forgotPassTextViewID"
+       android:clickable="true"
+       android:focusable="true"
+       android:textColor="@color/white"
+       android:textSize="17dp"
+       android:layout_centerHorizontal="true"
+       android:layout_marginTop="15dp"
+       android:text="Forgot Password"
+       android:layout_below="@+id/loginButtonID"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content" />
+
 </RelativeLayout>

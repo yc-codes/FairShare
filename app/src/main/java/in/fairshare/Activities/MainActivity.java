@@ -322,6 +322,7 @@ public class MainActivity extends AppCompatActivity {
                                     databaseReference.child("Username").setValue(userName);
                                     progressDialog.dismiss();
                                     Toast.makeText(MainActivity.this, "Video Successfully Uploaded", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
                                 } else {
                                     progressDialog.dismiss();
                                     Toast.makeText(MainActivity.this, "Video not successfully uploaded", Toast.LENGTH_SHORT).show();

@@ -1,5 +1,6 @@
 package in.fairshare.Activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,12 +30,18 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseUser mUser;
 
+    private TextInputLayout emailForgotPass;
+    private Button sendEmailButton;
     private TextInputLayout emailLogin;
     private TextInputLayout passwordLogin;
     private Button loginButton;
     private TextView registrationTextLogin;
+    private TextView forgotpassButton;
 
     private ProgressDialog mProgressDialog;
+
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordLogin = findViewById(R.id.passwordLoginID);
         loginButton = findViewById(R.id.loginButtonID);
         registrationTextLogin = findViewById(R.id.registrationTextLoginID);
+        forgotpassButton = findViewById(R.id.forgotPassTextViewID);
 
         mProgressDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
 
@@ -97,6 +107,48 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        forgotpassButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createPopup();
+            }
+        });
+    }
+
+    public void createPopup() {
+        dialogBuilder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.forgot_password_popup, null);
+
+        emailForgotPass = view.findViewById(R.id.emailEdtTxtID);
+        sendEmailButton = view.findViewById(R.id.sendButtonID);
+
+        sendEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!emailForgotPass.getEditText().getText().toString().isEmpty()){
+                    mAuth.sendPasswordResetEmail(emailForgotPass.getEditText().getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getApplicationContext(), "Email Sent !", Toast.LENGTH_LONG).show();
+                            dialog.dismiss();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "Enter a valid email address !", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }else {
+                    emailForgotPass.setError("Enter email first");
+                }
+            }
+        });
+
+        dialogBuilder.setView(view);
+        dialog = dialogBuilder.create();
+        dialog.show();
     }
 
     private void login(final String email, String pwd) {
@@ -120,6 +172,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+
     }
 
 //    @Override
