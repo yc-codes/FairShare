@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import in.fairshare.R;
@@ -147,10 +148,13 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private boolean validateFullName() {
-        String usernameInput = fullNameRegistration.getEditText().getText().toString().trim();
+        String fullnameInput = fullNameRegistration.getEditText().getText().toString().trim();
 
-        if (usernameInput.isEmpty()) {
+        if (fullnameInput.isEmpty()) {
             fullNameRegistration.setError("Field can't be empty");
+            return false;
+        } else if (!validateLetters(fullnameInput)) { // Self Made
+            fullNameRegistration.setError("Full Name can only contains letters");
             return false;
         } else {
             fullNameRegistration.setError(null);
@@ -186,5 +190,13 @@ public class RegistrationActivity extends AppCompatActivity {
             passwordRegistration.setError(null);
             return true;
         }
+    }
+
+    public static boolean validateLetters(String txt) {
+
+        String regx = "^[a-zA-Z\\\\s]*$";
+        Pattern pattern = Pattern.compile(regx,Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(txt);
+        return matcher.find();
     }
 }
