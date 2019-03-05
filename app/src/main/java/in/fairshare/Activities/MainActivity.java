@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
             CryptoUtils.encrypt(keyFromString, inputFile, encryptedFile);
 
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(),"Failed!" + e,Toast.LENGTH_LONG).show();
+            
         }
     }
 

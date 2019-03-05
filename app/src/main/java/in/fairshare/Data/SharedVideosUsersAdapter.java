@@ -1,6 +1,8 @@
 package in.fairshare.Data;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -25,6 +27,9 @@ public class SharedVideosUsersAdapter extends RecyclerView.Adapter<SharedVideosU
     Context context;
     ArrayList<String> username = new ArrayList<>();
     ArrayList<String> userID = new ArrayList<>();
+
+    AlertDialog.Builder dialogBuilder;
+    AlertDialog dialog;
 
     public SharedVideosUsersAdapter(RecyclerView recyclerView, Context context, ArrayList<String> username, ArrayList<String> userID) {
         this.recyclerView = recyclerView;
@@ -51,7 +56,7 @@ public class SharedVideosUsersAdapter extends RecyclerView.Adapter<SharedVideosU
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
 
-        CheckBox checkBox = new CheckBox(context);
+        final CheckBox checkBox = new CheckBox(context);
         checkBox.setText(username.get(i));
         checkBox.setTextSize(22);
         int states[][] = {{android.R.attr.state_checked}, {}};
@@ -63,18 +68,17 @@ public class SharedVideosUsersAdapter extends RecyclerView.Adapter<SharedVideosU
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
                 if (isChecked){
-
                     MyAdapter myAdapter = new MyAdapter();
                     myAdapter.usersData(username.get(i), userID.get(i));
                 } else {
-
                     MyAdapter myAdapter = new MyAdapter();
                     myAdapter.usersDataShareAccessDelete(username.get(i), userID.get(i));
                 }
+
             }
         });
+
     }
 
     @Override
@@ -94,10 +98,8 @@ public class SharedVideosUsersAdapter extends RecyclerView.Adapter<SharedVideosU
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     int position = recyclerView.getChildLayoutPosition(v);
-
-                    Toast.makeText(context, userID.get(position), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(context, userID.get(position), Toast.LENGTH_LONG).show();
                 }
             });
         }

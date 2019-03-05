@@ -9,7 +9,7 @@
     <string name="btn_signup">Sign Up</string>
     <string name="hint_username">Username</string>
     <string name="register_ques">Haven\'t Registered Yet?</string>
-    <string name="register_text">Register</string>
+    <string name="register_text">Register Now</string>
     <string name="signout">Sign Out</string>
     <string name="hint_fullName">Full Name</string>
     <string name="text_upload">Upload Video</string>
@@ -22,4 +22,5 @@
     <string name="upload_video">Upload Video</string>
     <string name="save">Save</string>
     <string name="sharedby">Shared by :</string>
+    <string name="forgot_pass">Forgot Password?</string>
 </resources>

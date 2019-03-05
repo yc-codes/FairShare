@@ -3,6 +3,7 @@ package in.fairshare.Activities;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +54,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButtonID);
         registrationTextLogin = findViewById(R.id.registrationTextLoginID);
         forgotpassButton = findViewById(R.id.forgotPassTextViewID);
+        forgotpassButton.setPaintFlags(forgotpassButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
 
         mProgressDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
 

@@ -1,6 +1,8 @@
 package in.fairshare.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +31,9 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseReference;
     private String userID;
+
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +77,32 @@ public class ProfileActivity extends AppCompatActivity {
         signoutButtonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialogBuilder = new AlertDialog.Builder(ProfileActivity.this, R.style.AppCompatAlertDialogStyle);
 
-                if(mAuth != null) {
-                    mAuth.signOut();
-                    startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
-                    finishAffinity();
-                } else {
-                    Toast.makeText(ProfileActivity.this, "Unable to SignOut", Toast.LENGTH_SHORT).show();
-                }
+                dialogBuilder.setCancelable(false);
+                dialogBuilder.setMessage("Are you sure you want to Sign Out?");
+                dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //sign out of the account
+                        if(mAuth != null) {
+                            mAuth.signOut();
+                            startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+                            finishAffinity();
+                        } else {
+                            Toast.makeText(ProfileActivity.this, "Unable to SignOut", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog = dialogBuilder.create();
+                dialog.show();
+
             }
         });
     }
