@@ -24,4 +24,7 @@
     <string name="sharedby">Shared by :</string>
     <string name="forgot_pass">Forgot Password?</string>
     <string name="on">on</string>
+    <string name="search">Search</string>
+    <string name="delete_account">Delete Account?</string>
+    <string name="change_password">Change Password!</string>
 </resources>

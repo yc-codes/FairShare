@@ -98,6 +98,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "Can't Play Video!", Toast.LENGTH_LONG).show();
             }
         });

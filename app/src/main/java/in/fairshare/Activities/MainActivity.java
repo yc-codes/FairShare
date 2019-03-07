@@ -42,6 +42,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.io.Serializable;
 import java.security.Key;
 import java.security.SecureRandom;
 import java.util.Base64;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase database; // Used to store URLs of uploaded file
     private FirebaseUser mUser;
     private FirebaseAuth mAuth;
+    public static FirebaseUser uUser;
     String userID;
 
     private ProgressDialog progressDialog;
@@ -106,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         userID = mUser.getUid();
+
+        uUser = FirebaseAuth.getInstance().getCurrentUser();
 
 //        Intent intent = getIntent();
 //        userID = intent.getStringExtra("UserID");
@@ -241,10 +245,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-//        if (Build.VERSION.SDK_INT > 19){
-//            filePath = RealPathUtil.getRealPathFromURI_API19(MainActivity.this, uri);
-//        }
-
         // Encryption is done here
         try {
             KeyGenerator keyGen;
@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
             CryptoUtils.encrypt(keyFromString, inputFile, encryptedFile);
 
         } catch (Exception e) {
-            
+            Toast.makeText(getApplicationContext(), "Please choose a video", Toast.LENGTH_SHORT).show();
         }
     }
 

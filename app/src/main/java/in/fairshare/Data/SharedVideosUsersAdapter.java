@@ -28,11 +28,8 @@ public class SharedVideosUsersAdapter extends RecyclerView.Adapter<SharedVideosU
 
     RecyclerView recyclerView;
     Context context;
-    ArrayList<String> username = new ArrayList<>();
+    public static ArrayList<String> username = new ArrayList<>();
     ArrayList<String> userID = new ArrayList<>();
-
-    AlertDialog.Builder dialogBuilder;
-    AlertDialog dialog;
 
     public SharedVideosUsersAdapter(RecyclerView recyclerView, Context context, ArrayList<String> username, ArrayList<String> userID) {
         this.recyclerView = recyclerView;
@@ -111,4 +108,10 @@ public class SharedVideosUsersAdapter extends RecyclerView.Adapter<SharedVideosU
             });
         }
     }
+
+//    public void filterList(ArrayList<String> filterUsernames) {
+//
+//        this.username = filterUsernames;
+//        notifyDataSetChanged();
+//    }
 }

@@ -1,14 +1,18 @@
 package in.fairshare.Activities;
 
 import android.content.Context;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -26,6 +30,8 @@ import in.fairshare.Data.MyAdapter;
 import in.fairshare.Data.SharedVideosUsersAdapter;
 import in.fairshare.R;
 
+import static in.fairshare.Data.SharedVideosUsersAdapter.username;
+
 public class SharedVideosUsersActivity extends AppCompatActivity {
 
     private FirebaseUser mUser;
@@ -37,6 +43,9 @@ public class SharedVideosUsersActivity extends AppCompatActivity {
 
     //private LinearLayout shareVideosLinearLayout;
     private Button shareVideosSaveButton;
+    private EditText searchUsername;
+
+    private SharedVideosUsersAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +53,7 @@ public class SharedVideosUsersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shared_videos_users);
 
         sharedVideosUsersRecyclerView = findViewById(R.id.sharedVideosUsersRecyclerViewID);
+        // searchUsername = findViewById(R.id.searchUsernameID);
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -81,8 +91,39 @@ public class SharedVideosUsersActivity extends AppCompatActivity {
             }
         });
 
+//        searchUsername.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//                filter(s.toString());
+//            }
+//        });
+
         sharedVideosUsersRecyclerView.setLayoutManager(new LinearLayoutManager(SharedVideosUsersActivity.this));
-        SharedVideosUsersAdapter adapter = new SharedVideosUsersAdapter(sharedVideosUsersRecyclerView, SharedVideosUsersActivity.this, new ArrayList<String>(), new ArrayList<String>());
+        adapter = new SharedVideosUsersAdapter(sharedVideosUsersRecyclerView, SharedVideosUsersActivity.this, new ArrayList<String>(), new ArrayList<String>());
         sharedVideosUsersRecyclerView.setAdapter(adapter);
     }
+
+//    private void filter(String text) {
+//
+//        ArrayList<String> filterUsername = new ArrayList<>();
+//
+//        for (String s : username) {
+//
+//            if (s.toLowerCase().contains(text.toLowerCase())) {
+//                filterUsername.add(s);
+//            }
+//        }
+//        adapter.filterList(filterUsername);
+//    }
 }

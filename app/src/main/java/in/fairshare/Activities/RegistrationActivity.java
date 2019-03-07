@@ -194,7 +194,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     public static boolean validateLetters(String txt) {
 
-        String regx = "^[a-zA-Z\\\\s]*$";
+        String regx = "^[a-zA-Z\\s]*$";
         Pattern pattern = Pattern.compile(regx,Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(txt);
         return matcher.find();
