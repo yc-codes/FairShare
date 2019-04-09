@@ -64,8 +64,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
         key = new SecretKeySpec(encodedKey, 0, encodedKey.length,"AES");
 
         firebaseStorage = FirebaseStorage.getInstance();
-        storageReference = firebaseStorage.getReferenceFromUrl(extras.getString("URL"));
-
+        storageReference = firebaseStorage.getReferenceFromUrl(extras.getString("URL")); //creating a storage reference
+                                                                                            //   for downloading the file
         try {
             encFileFromServer = File.createTempFile("FileFromServer", "enc");
             outFile = File.createTempFile("decryptedFile", "mp4");
@@ -79,12 +79,15 @@ public class VideoPlayerActivity extends AppCompatActivity {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage("Loading...");
 
+        //shows a progress dialog until the file from server is decrypted
         progressDialog.show();
 
+        //retrieve the encrypted file from server
         storageReference.getFile(encFileFromServer).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 try {
+                    //decrypt the file received file from server
                     CryptoUtils.decrypt(key, encFileFromServer, outFile);
                     progressDialog.dismiss();
                 } catch (CryptoException e) {

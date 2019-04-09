@@ -18,16 +18,19 @@ import javax.crypto.NoSuchPaddingException;
 public class CryptoUtils {
     private static final String ALGORITHM = "AES";
 
+    //encryption
     public static void encrypt(Key key, File inputFile, File outputFile)
             throws CryptoException {
         doCrypto(Cipher.ENCRYPT_MODE, key, inputFile, outputFile);
     }
 
+    //decryption
     public static void decrypt(Key key, File inputFile, File outputFile)
             throws CryptoException {
         doCrypto(Cipher.DECRYPT_MODE, key, inputFile, outputFile);
     }
 
+    //function that performs encryption/decryption based on the cipher mode
     private static void doCrypto(int cipherMode, Key key, File inputFile,
                                  File outputFile) throws CryptoException {
         try {

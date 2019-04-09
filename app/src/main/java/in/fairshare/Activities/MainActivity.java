@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //popup to choose video along with its title and description
     public void createPopup(){
         dialogBuilder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.popup, null);
@@ -171,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
         chooseVideoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Ask for permissions if not granted
                 if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE+Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat
@@ -219,11 +221,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //opens local video  files list
     public void performFileSearch() {
 
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("video/*");
+        intent.setType("video/*"); //allows to choose only the video files
         startActivityForResult(intent, READ_REQUEST_CODE);
     }
 
@@ -240,12 +243,13 @@ public class MainActivity extends AppCompatActivity {
                 uri = resultData.getData();
 
                 if (Build.VERSION.SDK_INT > 19){
-                    filePath = RealPathUtil.getRealPathFromURI_API19(MainActivity.this, uri);
+                    //obtain the real file path from URI
+                    filePath = RealPathUtil.getRealPathFromURI(MainActivity.this, uri);
                 }
             }
         }
 
-        // Encryption is done here
+        // Encryption of the video file to upload
         try {
             KeyGenerator keyGen;
             keyGen = KeyGenerator.getInstance("AES");

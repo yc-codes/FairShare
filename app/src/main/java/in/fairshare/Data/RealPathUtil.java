@@ -1,15 +1,14 @@
 package in.fairshare.Data;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
+// function to obtain the real path of the video file chosen
 public class RealPathUtil {
-    @SuppressLint("NewApi")
-    public static String getRealPathFromURI_API19(Context context, Uri uri){
+    public static String getRealPathFromURI(Context context, Uri uri){
         String filePath = "";
         String wholeID = DocumentsContract.getDocumentId(uri);
 

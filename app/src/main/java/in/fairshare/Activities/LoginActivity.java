@@ -120,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    // popup dialog to reset the password
     public void createPopup() {
         dialogBuilder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.forgot_password_popup, null);
@@ -131,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!emailForgotPass.getEditText().getText().toString().isEmpty()){
+                    //sends an email to reset the password to the email address associated with the accounts
                     mAuth.sendPasswordResetEmail(emailForgotPass.getEditText().getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
