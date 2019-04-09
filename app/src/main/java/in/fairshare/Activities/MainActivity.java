@@ -107,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance(); // Return object of firebase database
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
-        userID = mUser.getUid();
+        userID = mUser.getUid(); // Getting Current User userID
 
-        uUser = FirebaseAuth.getInstance().getCurrentUser();
+        uUser = FirebaseAuth.getInstance().getCurrentUser(); // Get Current Logged in User
 
 //        Intent intent = getIntent();
 //        userID = intent.getStringExtra("UserID");
@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
+        // User account gets automatically signout when he/she close the app
         super.onStop();
         if(mUser != null && mAuth != null) {
             mAuth.signOut();
@@ -287,20 +288,24 @@ public class MainActivity extends AppCompatActivity {
         final String fileName1 = System.currentTimeMillis() +  "";
         final StorageReference storageReference = storage.getReference(); // Return root path
 
+        // Uploading Encrypted Video File in FirebaseStorage
         storageReference.child("Videos").child(fileName).putFile(encFilePathUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+                        // On Success of upload getting DownloadUrl so using that we can download file
                         String url = taskSnapshot.getDownloadUrl().toString(); // Return url of uploaded file
-                        // Toast.makeText(MainActivity.this, url, Toast.LENGTH_SHORT).show();
-                        // Store this Url in realtime database
 
+                        // Reference to the Users Table
                         DatabaseReference databaseReferenceForUsername = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+
+                        // Use to get data from Users table
                         ValueEventListener valueEventListener = new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                                // Getting username of current user from Users table
                                 userName = dataSnapshot.child("Username").getValue(String.class);
                             }
 
@@ -311,14 +316,17 @@ public class MainActivity extends AppCompatActivity {
                         };
                         databaseReferenceForUsername.addListenerForSingleValueEvent(valueEventListener);
 
+                        // Reference to the Videos Table
                         final DatabaseReference databaseReference = database.getReference().child("Videos").child(userID).child(fileName1); // Return root path
 
+                        // Adding download url of uploaded video into videos table
                         databaseReference.child("URL").setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 
                                 if ( task.isSuccessful() ) {
 
+                                    // On Success of this adding video title,descp,etc.. into videos table
                                     databaseReference.child("Video Title").setValue(videoTitle);
                                     databaseReference.child("Video Descp").setValue(videoDescp);
                                     databaseReference.child("Key").setValue(stringKey);
@@ -346,6 +354,7 @@ public class MainActivity extends AppCompatActivity {
             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                 // Track the progress of video upload
 
+                // Count how much percentage data upload
                 int currentProgress = (int) ( 100 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount() );
                 progressDialog.setProgress(currentProgress);
             }

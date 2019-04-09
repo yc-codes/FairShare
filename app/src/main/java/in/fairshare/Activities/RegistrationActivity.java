@@ -97,6 +97,7 @@ public class RegistrationActivity extends AppCompatActivity {
             mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             mProgressDialog.show();
 
+            // Create new user with email and password
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
@@ -104,6 +105,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                             if (authResult != null) {
 
+                                // Adding data of user in Users Table
                                 String userID = mAuth.getCurrentUser().getUid();
                                 DatabaseReference currentUserDb = mDatabaseReference.child(userID);
                                 currentUserDb.child("Username").setValue(username);

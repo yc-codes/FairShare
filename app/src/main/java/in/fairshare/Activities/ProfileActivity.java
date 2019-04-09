@@ -106,7 +106,7 @@ public class ProfileActivity extends AppCompatActivity {
         Intent i = getIntent();
         userID = i.getStringExtra("userID");
 
-        user = MainActivity.uUser;
+        user = MainActivity.uUser; // Getting current user
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
         userAndIDDatabaseReference = FirebaseDatabase.getInstance().getReference().child("UserAndID").child(userID);
@@ -117,10 +117,12 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                // Getting current user data from Users Table
                 String email = dataSnapshot.child("Email").getValue(String.class);
                 String fullName = dataSnapshot.child("FullName").getValue(String.class);
                 String userName = dataSnapshot.child("Username").getValue(String.class);
 
+                // Putting them into there respected TextView
                 emailProfile.setText(email);
                 fullNameProfile.setText(fullName);
                 usernameProfile.setText(userName);
@@ -210,6 +212,8 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         //Delete Account
                         mProgressDialog.show();
+
+                        // Remove Users Account From Database
                         mDatabaseReference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

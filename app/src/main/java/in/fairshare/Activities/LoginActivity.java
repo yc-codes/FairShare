@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         forgotpassButton = findViewById(R.id.forgotPassTextViewID);
         forgotpassButton.setPaintFlags(forgotpassButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-
+        // Object of ProgressDialog
         mProgressDialog = new ProgressDialog(this, R.style.AppCompatAlertDialogStyle);
 
         registrationTextLogin.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +68,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        mAuth = FirebaseAuth.getInstance();
+        // It is a object of Firebase Authentication which you can use for authentication
+        mAuth = FirebaseAuth.getInstance(); // Return object of Firebase Authentication
 
 //        mAuthListener = new FirebaseAuth.AuthStateListener() {
 //            @Override

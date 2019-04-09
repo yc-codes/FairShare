@@ -62,6 +62,7 @@ public class SharedVideosActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
+                // Get Filename from Shared Videos table
                 filename = dataSnapshot.getKey();
                 Log.d("Filename", filename);
 
@@ -71,6 +72,7 @@ public class SharedVideosActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
+                        // Get information of video
                         String sharedVideoTitle = dataSnapshot.child("Video Title").getValue(String.class);
                         String sharedVideoDescp = dataSnapshot.child("Video Descp").getValue(String.class);
                         String sharedVideoUrl = dataSnapshot.child("URL").getValue(String.class);
@@ -79,6 +81,8 @@ public class SharedVideosActivity extends AppCompatActivity {
                         String sharedVideoUsername = dataSnapshot.child("Username").getValue(String.class);
                         String sharedVideoDate = dataSnapshot.child("Video Shared Date").getValue(String.class);
 
+                        // Update Adapter with the information of video
+                        // So using that we can show shared video
                         ((SharedVideosAdapter)sharedVideoRecyclerView.getAdapter()).updateShare(sharedVideoTitle, sharedVideoDescp, sharedVideoUrl, sharedVideoKey, sharedVideoFileName, sharedVideoUsername, sharedVideoDate);
                     }
 
@@ -112,11 +116,13 @@ public class SharedVideosActivity extends AppCompatActivity {
             }
         });
 
+        // Bind RecyclerView and Activity with adapter
         sharedVideoRecyclerView.setLayoutManager(new LinearLayoutManager(SharedVideosActivity.this));
         SharedVideosAdapter adapter = new SharedVideosAdapter(sharedVideoRecyclerView, SharedVideosActivity.this, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>());
         sharedVideoRecyclerView.setAdapter(adapter);
     }
 
+    // Delete Shared Video
     public void deleteShareVideo(String filename) {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Shared Video").child(userID).child(filename);

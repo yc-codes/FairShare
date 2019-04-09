@@ -59,6 +59,7 @@ public class VideosActivity extends AppCompatActivity {
         Intent intent = getIntent();
         userID = intent.getStringExtra("userID");
 
+        // Reference to the Shared Video Table
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Shared Video");
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Videos").child(userID);
@@ -67,6 +68,7 @@ public class VideosActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
+                // Get filename from Videos Table
                 filename = dataSnapshot.getKey();
                 Log.d("Filename", filename);
 
@@ -76,6 +78,7 @@ public class VideosActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
+                        // Get information of videos from Video Table
                         String videoTitle = dataSnapshot.child("Video Title").getValue(String.class);
                         String videoDescp = dataSnapshot.child("Video Descp").getValue(String.class);
                         String videoUrl = dataSnapshot.child("URL").getValue(String.class);
@@ -83,6 +86,8 @@ public class VideosActivity extends AppCompatActivity {
                         String fileName =  dataSnapshot.child("Filename").getValue(String.class);
                         String userName = dataSnapshot.child("Username").getValue(String.class);
 
+                        // Update Adapter with the information of video
+                        // So using that we can show video
                         ((MyAdapter)recyclerView.getAdapter()).update(videoTitle,videoDescp,videoUrl,key,fileName, userName);
                     }
 
@@ -121,6 +126,7 @@ public class VideosActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    // Delete video from Videos Table
     public void delete(String filename) {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Videos").child(userID).child(filename);
@@ -139,6 +145,7 @@ public class VideosActivity extends AppCompatActivity {
         });
     }
 
+    // Share Video to selected user
     public void share(String title, final String descp, final String url, final String key, final String filename, final String usernameOfUploadVideoUser, final String userName, String userId, String date) {
 
         final String currentDate = date;
@@ -149,12 +156,14 @@ public class VideosActivity extends AppCompatActivity {
                 !TextUtils.isEmpty(url) && !TextUtils.isEmpty(key)
                     && !TextUtils.isEmpty(filename) && !TextUtils.isEmpty(usernameOfUploadVideoUser)) {
 
+            // Add Video Title into Shared Video Table
             shareDatabaseReference.child("Video Title").setValue(title).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
 
                     if ( task.isSuccessful() ) {
 
+                        // Add shared video information into Shared Video Table
                         shareDatabaseReference.child("Video Descp").setValue(descp);
                         shareDatabaseReference.child("URL").setValue(url);
                         shareDatabaseReference.child("Key").setValue(key);
@@ -179,6 +188,7 @@ public class VideosActivity extends AppCompatActivity {
         }
     }
 
+    // Retrieve Shared Access from the user
     public void shareAccessDelete(String title, final String descp, final String url, final String key, final String filename, final String usernameOfUploadVideoUser, final String userName, String userId) {
 
         DatabaseReference shareDatabaseReference = mDatabaseReference.child(userId).child(filename);

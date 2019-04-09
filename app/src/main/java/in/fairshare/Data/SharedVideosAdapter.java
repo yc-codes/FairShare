@@ -65,6 +65,8 @@ public class SharedVideosAdapter extends RecyclerView.Adapter<SharedVideosAdapte
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
 
+        // This method is called for every cardview or data
+        // It gets information of video in each and every respected cardview
         viewHolder.sharedVideoTitle.setText(sharedVideoTitle.get(i));
         viewHolder.sharedVideoDescp.setText(sharedVideoDescp.get(i));
         viewHolder.sharedVideoUsername.setText(sharedVideoUsername.get(i));
@@ -75,6 +77,7 @@ public class SharedVideosAdapter extends RecyclerView.Adapter<SharedVideosAdapte
             @Override
             public void onClick(View v) {
 
+                // Create popup menu which has option of delete shared video
                 PopupMenu popupMenu = new PopupMenu(context, viewHolder.sharedVideoOption);
                 popupMenu.inflate(R.menu.menu_sharevideo);
 
@@ -86,6 +89,7 @@ public class SharedVideosAdapter extends RecyclerView.Adapter<SharedVideosAdapte
 
                             case R.id.menu_deletesharevideo:
 
+                                // This send filename of video which you want to delete from shared video
                                 SharedVideosActivity sharedVideosActivity = new SharedVideosActivity();
                                 sharedVideosActivity.deleteShareVideo(sharedVideoFileName.get(i));
                                 break;

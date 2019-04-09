@@ -96,6 +96,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
                             case R.id.menu_deletevideo:
 
+                                // This sends filename of video which you want to delete
                                 VideosActivity videosActivity = new VideosActivity();
                                 videosActivity.delete(fileName.get(i));
                                 break;
