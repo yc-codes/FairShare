@@ -95,7 +95,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 }
 
                 videoView.setVideoURI(Uri.parse(outFile.getPath()));
-                videoView.requestFocus();
+                videoView.requestFocus(); // give focus to a specific view
                 videoView.start();
             }
         }).addOnFailureListener(new OnFailureListener() {

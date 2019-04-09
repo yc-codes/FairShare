@@ -252,10 +252,10 @@ public class MainActivity extends AppCompatActivity {
         // Encryption of the video file to upload
         try {
             KeyGenerator keyGen;
-            keyGen = KeyGenerator.getInstance("AES");
-            keyGen.init(128);
+            keyGen = KeyGenerator.getInstance("AES"); // key generator to generate key for AES Algorithm
+            keyGen.init(128); // initializing the key generator to 128 bit key size
 
-            SecretKey secretKey = keyGen.generateKey();
+            SecretKey secretKey = keyGen.generateKey(); // generating the secret key of 128 bits
 
             stringKey = Base64Utils.encode(secretKey.getEncoded());
             encodedKey = Base64Utils.decode(stringKey);
@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
             encryptedFile = File.createTempFile("encryptedFile","enc");
             encFilePathUri = Uri.fromFile(encryptedFile);
 
-            CryptoUtils.encrypt(keyFromString, inputFile, encryptedFile);
+            CryptoUtils.encrypt(keyFromString, inputFile, encryptedFile); //encrypting the video file 
 
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Please choose a video", Toast.LENGTH_SHORT).show();

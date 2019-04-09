@@ -132,8 +132,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!emailForgotPass.getEditText().getText().toString().isEmpty()){
+
                     //sends an email to reset the password to the email address associated with the accounts
-                    mAuth.sendPasswordResetEmail(emailForgotPass.getEditText().getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    mAuth.sendPasswordResetEmail(emailForgotPass.getEditText().getText().toString())
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(getApplicationContext(), "Email Sent !", Toast.LENGTH_LONG).show();
