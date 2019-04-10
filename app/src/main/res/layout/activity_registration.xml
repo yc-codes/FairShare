@@ -7,36 +7,55 @@
     android:background="@drawable/login_bg"
     tools:context=".Activities.RegistrationActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:layout_centerHorizontal="true"
-        android:text="@string/app_name"
-        android:layout_marginTop="50dp"
-        android:textSize="42sp"
-        android:textStyle="bold"
-        android:id="@+id/app_name"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/splash_screen_logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:fontFamily="@font/gsans_bold"
+            android:text="@string/app_name"
+            android:textSize="42sp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:id="@+id/app_name" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/center_form_id"
+        android:orientation="vertical">
 
     <TextView
         android:id="@+id/signup_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/app_name"
-        android:layout_centerHorizontal="true"
         android:text="@string/btn_signup"
         android:textColor="@color/white"
-        android:textSize="42sp" />
+        android:fontFamily="@font/gsans_bold"
+        android:textSize="38sp" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/usernameRegistrationID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:counterEnabled="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_below="@id/signup_txt"
+        android:textColorHint="@color/white_low_opacity"
         app:counterTextAppearance="@style/CounterAppearance"
         android:layout_marginTop="45dp"
         app:errorTextAppearance="@style/ErrorAppearance"
@@ -45,6 +64,7 @@
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
+            android:fontFamily="@font/product_sans"
             android:textColor="@color/white"
             android:hint="@string/hint_username"
             android:layout_height="wrap_content"
@@ -53,11 +73,9 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/fullNameRegistrationID"
+        android:textColorHint="@color/white_low_opacity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_below="@id/usernameRegistrationID"
         android:layout_marginTop="10dp"
         app:errorTextAppearance="@style/ErrorAppearance"
         app:errorEnabled="true">
@@ -65,6 +83,7 @@
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:textColor="@color/white"
+            android:fontFamily="@font/product_sans"
             android:hint="@string/hint_fullName"
             android:layout_height="wrap_content"
             android:inputType="textPersonName" />
@@ -74,9 +93,7 @@
         android:id="@+id/emailRegistrationID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_below="@id/fullNameRegistrationID"
+        android:textColorHint="@color/white_low_opacity"
         android:layout_marginTop="10dp"
         app:errorTextAppearance="@style/ErrorAppearance"
         app:errorEnabled="true">
@@ -84,6 +101,7 @@
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:textColor="@color/white"
+            android:fontFamily="@font/product_sans"
             android:hint="@string/hint_email"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
@@ -93,10 +111,8 @@
         android:id="@+id/passwordRegistrationID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/emailRegistrationID"
+        android:textColorHint="@color/white_low_opacity"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/white"
         app:errorTextAppearance="@style/ErrorAppearance"
@@ -105,6 +121,7 @@
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:textColor="@color/white"
+            android:fontFamily="@font/product_sans"
             android:hint="@string/hint_password"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
@@ -112,12 +129,19 @@
 
     <Button
         android:id="@+id/signupButtonID"
-        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_width="120dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/product_sans"
+        android:textAllCaps="false"
+        android:padding="0dp"
+        android:textSize="16sp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/passwordRegistrationID"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:background="@drawable/button_bg"
+        android:textColor="@color/colorPrimary"
         android:text="@string/btn_signup" />
+
+    </LinearLayout>
 
 </RelativeLayout>
