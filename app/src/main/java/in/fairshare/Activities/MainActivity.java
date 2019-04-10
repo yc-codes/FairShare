@@ -111,9 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
         uUser = FirebaseAuth.getInstance().getCurrentUser(); // Get Current Logged in User
 
-//        Intent intent = getIntent();
-//        userID = intent.getStringExtra("UserID");
-
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -243,10 +240,8 @@ public class MainActivity extends AppCompatActivity {
 
                 uri = resultData.getData();
 
-                if (Build.VERSION.SDK_INT > 19){
-                    //obtain the real file path from URI
-                    filePath = RealPathUtil.getRealPathFromURI(MainActivity.this, uri);
-                }
+                //obtain the real file path from URI
+                filePath = RealPathUtil.getRealPathFromURI(MainActivity.this, uri);
             }
         }
 
@@ -266,8 +261,7 @@ public class MainActivity extends AppCompatActivity {
             encryptedFile = File.createTempFile("encryptedFile","enc");
             encFilePathUri = Uri.fromFile(encryptedFile);
 
-            CryptoUtils.encrypt(keyFromString, inputFile, encryptedFile); //encrypting the video file 
-
+            CryptoUtils.encrypt(keyFromString, inputFile, encryptedFile); //encrypting the video file
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Please choose a video", Toast.LENGTH_SHORT).show();
         }
@@ -345,15 +339,15 @@ public class MainActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+
                 progressDialog.dismiss();
                 Toast.makeText(MainActivity.this, "Video not successfully uploaded", Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                // Track the progress of video upload
 
+                // Track the progress of video upload
                 // Count how much percentage data upload
                 int currentProgress = (int) ( 100 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount() );
                 progressDialog.setProgress(currentProgress);

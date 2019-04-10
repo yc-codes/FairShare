@@ -71,25 +71,6 @@ public class LoginActivity extends AppCompatActivity {
         // It is a object of Firebase Authentication which you can use for authentication
         mAuth = FirebaseAuth.getInstance(); // Return object of Firebase Authentication
 
-//        mAuthListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//
-//                mUser = firebaseAuth.getCurrentUser();
-//                String userID = mUser.getUid();
-//
-//                if (mUser != null) {
-//                    // Toast.makeText(LoginActivity.this, "Signed In!!", Toast.LENGTH_LONG).show();
-//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                    intent.putExtra("UserID", userID);
-//                    startActivity(intent);
-//                    finishAffinity();
-//                } else {
-//                    // Toast.makeText(LoginActivity.this, "Not Signed In!!", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        };
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,19 +163,4 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
     }
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        mAuth.addAuthStateListener(mAuthListener); // To See User State whether it is login or not
-//    }
-
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//
-//        if (mAuthListener != null) {
-//            mAuth.removeAuthStateListener(mAuthListener);
-//        }
-//    }
 }

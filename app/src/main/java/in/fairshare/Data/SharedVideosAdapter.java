@@ -71,7 +71,6 @@ public class SharedVideosAdapter extends RecyclerView.Adapter<SharedVideosAdapte
         viewHolder.sharedVideoDescp.setText(sharedVideoDescp.get(i));
         viewHolder.sharedVideoUsername.setText(sharedVideoUsername.get(i));
         viewHolder.sharedVideoDate.setText(sharedVideoDate.get(i));
-        // viewHolder.sharedVideoFileName.setText(sharedVideoFileName.get(i));
 
         viewHolder.sharedVideoOption.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +116,6 @@ public class SharedVideosAdapter extends RecyclerView.Adapter<SharedVideosAdapte
         private TextView sharedVideoOption;
         private TextView sharedVideoUsername;
         private TextView sharedVideoDate;
-        // private TextView sharedVideoFileName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -127,13 +125,10 @@ public class SharedVideosAdapter extends RecyclerView.Adapter<SharedVideosAdapte
             sharedVideoOption = itemView.findViewById(R.id.sharedVideoOptionID);
             sharedVideoUsername = itemView.findViewById(R.id.sharedVideoUsernameID);
             sharedVideoDate = itemView.findViewById(R.id.sharedVideoDateID);
-            // sharedVideoFileName = itemView.findViewById(R.id.sharedVideoFileNameID);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    // TODO: Tap on card to play video
 
                     int position = recyclerView.getChildLayoutPosition(v);
 

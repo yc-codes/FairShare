@@ -41,7 +41,6 @@ public class SharedVideosUsersActivity extends AppCompatActivity {
 
     private Context context;
 
-    //private LinearLayout shareVideosLinearLayout;
     private Button shareVideosSaveButton;
     private EditText searchUsername;
 
@@ -53,7 +52,6 @@ public class SharedVideosUsersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shared_videos_users);
 
         sharedVideosUsersRecyclerView = findViewById(R.id.sharedVideosUsersRecyclerViewID);
-        // searchUsername = findViewById(R.id.searchUsernameID);
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -91,39 +89,8 @@ public class SharedVideosUsersActivity extends AppCompatActivity {
             }
         });
 
-//        searchUsername.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//                filter(s.toString());
-//            }
-//        });
-
         sharedVideosUsersRecyclerView.setLayoutManager(new LinearLayoutManager(SharedVideosUsersActivity.this));
         adapter = new SharedVideosUsersAdapter(sharedVideosUsersRecyclerView, SharedVideosUsersActivity.this, new ArrayList<String>(), new ArrayList<String>());
         sharedVideosUsersRecyclerView.setAdapter(adapter);
     }
-
-//    private void filter(String text) {
-//
-//        ArrayList<String> filterUsername = new ArrayList<>();
-//
-//        for (String s : username) {
-//
-//            if (s.toLowerCase().contains(text.toLowerCase())) {
-//                filterUsername.add(s);
-//            }
-//        }
-//        adapter.filterList(filterUsername);
-//    }
 }

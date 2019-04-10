@@ -101,7 +101,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
-        // userID = mUser.getUid();
 
         Intent i = getIntent();
         userID = i.getStringExtra("userID");
@@ -173,6 +172,7 @@ public class ProfileActivity extends AppCompatActivity {
                 dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         //sign out of the account
                         if(mAuth != null) {
                             mAuth.signOut();
@@ -185,6 +185,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         dialog.dismiss();
                     }
                 });
@@ -210,7 +211,7 @@ public class ProfileActivity extends AppCompatActivity {
                 dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //Delete Account
+
                         mProgressDialog.show();
 
                         // Remove Users Account From Database
@@ -239,6 +240,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         dialog.dismiss();
                     }
                 });

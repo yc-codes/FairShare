@@ -64,8 +64,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
         key = new SecretKeySpec(encodedKey, 0, encodedKey.length,"AES");
 
         firebaseStorage = FirebaseStorage.getInstance();
-        storageReference = firebaseStorage.getReferenceFromUrl(extras.getString("URL")); //creating a storage reference
-                                                                                            //   for downloading the file
+        storageReference = firebaseStorage.getReferenceFromUrl(extras.getString("URL")); // Creating a storage reference
+                                                                                             // For downloading the file
         try {
             encFileFromServer = File.createTempFile("FileFromServer", "enc");
             outFile = File.createTempFile("decryptedFile", "mp4");

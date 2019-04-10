@@ -7,22 +7,11 @@
     android:background="@drawable/login_bg"
     tools:context=".Activities.SharedVideosUsersActivity">
 
-    <EditText
-        android:id="@+id/searchUsernameID"
-        android:textColor="@color/white"
-        android:hint="@string/search"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/sharedVideosUsersRecyclerViewID"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_below="@id/searchUsernameID"
         android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

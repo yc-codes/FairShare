@@ -103,15 +103,8 @@ public class SharedVideosUsersAdapter extends RecyclerView.Adapter<SharedVideosU
                 @Override
                 public void onClick(View v) {
                     int position = recyclerView.getChildLayoutPosition(v);
-                    //Toast.makeText(context, userID.get(position), Toast.LENGTH_LONG).show();
                 }
             });
         }
     }
-
-//    public void filterList(ArrayList<String> filterUsernames) {
-//
-//        this.username = filterUsernames;
-//        notifyDataSetChanged();
-//    }
 }

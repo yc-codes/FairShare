@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Fair Share</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="btn_registration">Registration</string>

@@ -78,13 +78,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         viewHolder.videoTitle.setText(videoTitle.get(i));
         viewHolder.videoDescp.setText(videoDescp.get(i));
-        // viewHolder.fileName.setText(fileName.get(i));
 
         viewHolder.option.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // final int position = recyclerView.getChildLayoutPosition(v);
 
                 final PopupMenu popupMenu = new PopupMenu(context, viewHolder.option);
                 popupMenu.inflate(R.menu.menu);
@@ -134,7 +131,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         private TextView videoTitle;
         private TextView videoDescp;
         private TextView option;
-        // private TextView fileName;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -142,13 +138,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             videoTitle = itemView.findViewById(R.id.videoTitleID);
             videoDescp = itemView.findViewById(R.id.videoDescpID);
             option = itemView.findViewById(R.id.optionID);
-            // fileName = itemView.findViewById(R.id.fileNameID);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    // TODO: Tap on card to play video
 
                     int position = recyclerView.getChildLayoutPosition(v);
 
